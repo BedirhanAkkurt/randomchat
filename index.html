@@ -29,11 +29,23 @@
         // Bağlantı işlemi
         async function connectToWallet() {
             try {
-                const connectedWallet = await tonConnectUI.connectWallet();
-                console.log(connectedWallet);
+                // Cüzdanın zaten bağlı olup olmadığını kontrol et
+                const connectedWallet = await tonConnectUI.getWalletState();
+                if (connectedWallet) {
+                    console.log(connectedWallet);
+                    document.getElementById('walletInfo').innerHTML = `
+                        <p>Wallet already connected!</p>
+                        <p>Address: ${connectedWallet.address}</p>
+                    `;
+                    return; // Cüzdan bağlıysa işlemi sonlandır
+                }
+
+                // Cüzdan bağlantısı yapılmadıysa bağlan
+                const newConnectedWallet = await tonConnectUI.connectWallet();
+                console.log(newConnectedWallet);
                 document.getElementById('walletInfo').innerHTML = `
                     <p>Wallet connected!</p>
-                    <p>Address: ${connectedWallet.address}</p>
+                    <p>Address: ${newConnectedWallet.address}</p>
                 `;
                 // Kullanıcı cüzdanı bağlandıktan sonra yönlendir
                 window.location.href = tonConnectUI.uiOptions.twaReturnUrl;
