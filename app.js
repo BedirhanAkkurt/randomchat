@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const transaction = {
                 messages: [
                     {
-                        address: "UQAJLzGdXo1ux3E67PbeCZfKt1ZsIdkX_2iZNMU3JlwHbcYM", // Hedef adres
+                        address: "UQDETtJnadSovmTIvzqzMbegqXDS6MS8zbVegFeTXCbPPjSB", // Hedef adres
                         amount: "20000000" // Toncoin nanotons cinsinden
                     }
                 ]
@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert("Transaction sent!");
             } catch (error) {
                 console.error("Error sending transaction:", error);
+                alert("Transaction failed: " + error.message); // Hata mesajını göster
             }
         }
 
