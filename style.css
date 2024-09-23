@@ -15,6 +15,7 @@ h1 {
 
 #ton-connect {
     margin: 20px 0; /* Butonun çevresine boşluk ekleyin */
+    z-index: 1;
 }
 
 #connectBtn {
