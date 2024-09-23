@@ -101,6 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Event listener ekleme
         document.getElementById('ton-connect').addEventListener('click', connectToWallet);
         document.getElementById('sendTransaction').addEventListener('click', sendTransaction);
+        document.getElementById('connectBtn').addEventListener('click', connectToWallet);
+
 
         // Telegram kullanıcı bilgilerini alma
         const user = window.Telegram.WebApp.initDataUnsafe?.user;
