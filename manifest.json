@@ -5,6 +5,8 @@
     "start_url": "https://raw.githubusercontent.com/BedirhanAkkurt/randomchat/refs/heads/main/index.html",
     "theme_color": "#0088cc",
     "background_color": "#ffffff",
-    "display": "standalone"
-  }
-  
+    "display": "standalone",
+    "domain": "flakesrandomchat.herokuapp.com",  // Uygulamanızın domaini
+    "appName": "Random Chat",                   // Uygulama adı
+    "url": "https://flakesrandomchat.herokuapp.com" // Uygulama URL'si
+}
