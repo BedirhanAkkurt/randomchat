@@ -34,15 +34,38 @@
                     return; // Eğer cüzdan zaten bağlıysa işlemi bitir
                 }
 
-                // Bağlanma işlemi
-                const newConnectedWallet = await tonConnectUI.connectWallet();
-                console.log('Newly connected wallet:', newConnectedWallet);
+                // Bağlanma işlemi ve ton-proof alma
+                const newConnectedWallet = await tonConnectUI.connectWallet({ tonProof: { domain: { length: 15, value: 'randomchat.com' } } });
+                console.log('Newly connected wallet with ton-proof:', newConnectedWallet);
                 document.getElementById('walletInfo').innerHTML = `
                     <p>Wallet connected!</p>
                     <p>Address: ${newConnectedWallet.address}</p>
                 `;
+
+                // Eğer ton-proof varsa backend'e gönder
+                if (newConnectedWallet.tonProof) {
+                    await sendTonProofToBackend(newConnectedWallet.tonProof);
+                }
+
             } catch (error) {
                 console.error("Error connecting to wallet:", error);
+            }
+        }
+
+        // Ton-proof'u backend'e gönderme
+        async function sendTonProofToBackend(tonProof) {
+            try {
+                const response = await fetch('https://your-backend.com/api/verify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ tonProof })
+                });
+                const data = await response.json();
+                console.log("Backend response:", data);
+            } catch (error) {
+                console.error("Error sending ton-proof to backend:", error);
             }
         }
 
