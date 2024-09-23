@@ -15,14 +15,55 @@ document.addEventListener('DOMContentLoaded', () => {
             twaReturnUrl: 'https://t.me/YOUR_APP_NAME'
         };
 
+        // Backend'e ton_proof doğrulama fonksiyonu
+        async function verifyTonProof(signedTonProof) {
+            try {
+                const response = await fetch("/api/verify-ton-proof", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(signedTonProof)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Ton proof doğrulaması başarısız!");
+                }
+
+                const result = await response.json();
+                console.log("Doğrulama başarılı:", result);
+            } catch (error) {
+                console.error("Doğrulama hatası:", error);
+            }
+        }
+
         // Cüzdanı bağlama fonksiyonu
         async function connectToWallet() {
             try {
-                const connectedWallet = await tonConnectUI.connectWallet();
-                console.log(connectedWallet);
+                const connectedWallet = await tonConnectUI.getWalletState();
+                if (connectedWallet) {
+                    console.log(connectedWallet);
+                    walletInfo.innerHTML = `
+                        <p>Wallet already connected!</p>
+                        <p>Address: ${connectedWallet.address}</p>
+                    `;
+                    return; // Cüzdan bağlıysa işlemi sonlandır
+                }
+
+                // TonProof ile cüzdan bağlantısı talep et
+                const newConnectedWallet = await tonConnectUI.connectWallet({
+                    tonProof: {
+                        payload: JSON.stringify({ action: 'sign_in' }) // İstediğiniz payload burada
+                    }
+                });
+
+                // TonProof doğrulama için backend'e gönder
+                await verifyTonProof(newConnectedWallet.proof);
+
+                console.log(newConnectedWallet);
                 walletInfo.innerHTML = `
                     <p>Wallet connected!</p>
-                    <p>Address: ${connectedWallet.address}</p>
+                    <p>Address: ${newConnectedWallet.address}</p>
                 `;
                 // Kullanıcı cüzdanı bağlandıktan sonra yönlendir
                 window.location.href = tonConnectUI.uiOptions.twaReturnUrl;
@@ -55,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Event listener ekleme
         document.getElementById('ton-connect').addEventListener('click', connectToWallet);
         document.getElementById('sendTransaction').addEventListener('click', sendTransaction);
-        
+
         // Telegram kullanıcı bilgilerini alma
         const user = window.Telegram.WebApp.initDataUnsafe?.user;
         if (user) {
