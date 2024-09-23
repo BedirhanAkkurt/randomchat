@@ -37,16 +37,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        async function connectWallet() {
+        async function connectToWallet() {
             try {
                 const connectedWallet = await tonConnectUI.connectWallet();
                 console.log(connectedWallet);
 
-                // Kullanıcının ton_proof verisini backend'e POST etmek
+        // Kullanıcının ton_proof verisini backend'e POST etmek
                 const tonProof = await tonConnectUI.getWalletState(); // Bu aşamada ton_proof alınır
                 console.log('Ton Proof:', tonProof);
 
-                // ton_proof'u backend'e gönder
+        // ton_proof'u backend'e gönder
                 const response = await fetch('https://git.heroku.com/flakesrandomchat.git', {
                     method: 'POST',
                     headers: {
