@@ -13,6 +13,10 @@ h1 {
     color: #333;
 }
 
+#ton-connect {
+    margin: 20px 0; /* Butonun çevresine boşluk ekleyin */
+}
+
 #connectBtn {
     padding: 20px 40px; /* Buton içeriğini daha iyi ayarlayın */
     font-size: 16px;
