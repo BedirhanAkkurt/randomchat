@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM fully loaded and parsed."); // Konsolda bu mesajı görmelisiniz.
+
     if (window.Telegram && window.Telegram.WebApp) {
+        console.log("Telegram WebApp detected.");
+
         window.Telegram.WebApp.ready();
 
         const walletInfo = document.getElementById('walletInfo');
@@ -12,11 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 manifestUrl: 'https://raw.githubusercontent.com/BedirhanAkkurt/randomchat/refs/heads/main/tonconnect-manifest.json',
                 buttonRootId: 'ton-connect'
             });
-
-            // Yönlendirme ayarları
-            tonConnectUI.uiOptions = {
-                twaReturnUrl: 'https://t.me/YOUR_APP_NAME'
-            };
 
             // Cüzdan bağlantısı fonksiyonu
             async function connectToWallet() {
@@ -84,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const connectBtn = document.getElementById('connectBtn');
             if (connectBtn) {
                 connectBtn.addEventListener('click', connectToWallet);
+                console.log("Connect to Wallet button event listener attached.");
             } else {
                 console.error("Connect button not found in DOM.");
             }
@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const sendTransactionBtn = document.getElementById('sendTransaction');
             if (sendTransactionBtn) {
                 sendTransactionBtn.addEventListener('click', sendTransaction);
+                console.log("Send Transaction button event listener attached.");
             } else {
                 console.error("Send Transaction button not found in DOM.");
             }
