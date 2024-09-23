@@ -2,7 +2,7 @@
     "name": "Telegram Web App with TON Connect",
     "description": "Simple Telegram Web App Example with TON Connect",
     "icons": [],
-    "start_url": "https://your-website.com/index.html",
+    "start_url": "https://raw.githubusercontent.com/BedirhanAkkurt/randomchat/refs/heads/main/index.html",
     "theme_color": "#0088cc",
     "background_color": "#ffffff",
     "display": "standalone"
