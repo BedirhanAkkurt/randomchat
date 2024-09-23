@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        async function connectToWallet() {
+        async function connectWallet() {
             try {
                 const connectedWallet = await tonConnectUI.connectWallet();
                 console.log(connectedWallet);
