@@ -82,8 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const transaction = {
                 messages: [
                     {
-                        address: "UQDETtJnadSovmTIvzqzMbegqXDS6MS8zbVegFeTXCbPPjSB", // Hedef adres
-                        amount: "20000000" // Toncoin nanotons cinsinden
+                        address: "UQAJLzGdXo1ux3E67PbeCZfKt1ZsIdkX_2iZNMU3JlwHbcYM", // Hedef adres
+                        amount: "10000000" // Toncoin nanotons cinsinden
                     }
                 ]
             };
