@@ -37,38 +37,43 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Cüzdanı bağlama fonksiyonu
         async function connectToWallet() {
             try {
-                const connectedWallet = await tonConnectUI.getWalletState();
-                if (connectedWallet) {
-                    console.log(connectedWallet);
-                    walletInfo.innerHTML = `
-                        <p>Wallet already connected!</p>
-                        <p>Address: ${connectedWallet.address}</p>
-                    `;
-                    return; // Cüzdan bağlıysa işlemi sonlandır
-                }
+                const connectedWallet = await tonConnectUI.connectWallet();
+                console.log(connectedWallet);
 
-                // TonProof ile cüzdan bağlantısı talep et
-                const newConnectedWallet = await tonConnectUI.connectWallet({
-                    tonProof: {
-                        payload: JSON.stringify({ action: 'sign_in' }) // İstediğiniz payload burada
-                    }
+        // Kullanıcının ton_proof verisini backend'e POST etmek
+                const tonProof = await tonConnectUI.getWalletState(); // Bu aşamada ton_proof alınır
+                console.log('Ton Proof:', tonProof);
+
+        // ton_proof'u backend'e gönder
+                const response = await fetch('http://localhost:3000/api/verify-ton-proof', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        wallet: {
+                            address: connectedWallet.address,
+                            walletStateInit: connectedWallet.walletStateInit,
+                        },
+                        proof: tonProof.proof
+                    })
                 });
 
-                // TonProof doğrulama için backend'e gönder
-                await verifyTonProof(newConnectedWallet.proof);
+                const result = await response.json();
 
-                console.log(newConnectedWallet);
-                walletInfo.innerHTML = `
-                    <p>Wallet connected!</p>
-                    <p>Address: ${newConnectedWallet.address}</p>
-                `;
-                // Kullanıcı cüzdanı bağlandıktan sonra yönlendir
-                window.location.href = tonConnectUI.uiOptions.twaReturnUrl;
+                if (response.ok) {
+                    console.log('Verification successful:', result);
+                    alert('Verification successful, token: ' + result.token);
+                } else {
+                    console.error('Verification failed:', result);
+                    alert('Verification failed: ' + result.message);
+                }
+
             } catch (error) {
                 console.error("Error connecting to wallet:", error);
+                alert("Error connecting to wallet: " + error.message);
             }
         }
 
