@@ -55,7 +55,7 @@
         // Ton-proof'u backend'e gönderme
         async function sendTonProofToBackend(tonProof) {
             try {
-                const response = await fetch('https://git.heroku.com/flakesrandomchat.git', {
+                const response = await fetch('https://flakesrandomchat.herokuapp.com/api/verify-ton-proof', { // Doğru backend URL
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -89,8 +89,7 @@
             }
         }
 
-        // Event listener ekleme
-        document.getElementById('ton-connect').addEventListener('click', connectToWallet);
+        // Event listener yalnızca işlem gönderimi için
         document.getElementById('sendTransaction').addEventListener('click', sendTransaction);
     </script>
 </body>
