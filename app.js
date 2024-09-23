@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Backend'e ton_proof doğrulama fonksiyonu
         async function verifyTonProof(signedTonProof) {
             try {
-                const response = await fetch("https://git.heroku.com/flakesrandomchat.git", {
+                const response = await fetch("/api/verify-ton-proof", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Ton Proof:', tonProof);
 
         // ton_proof'u backend'e gönder
-                const response = await fetch('http://localhost:3000/api/verify-ton-proof', {
+                const response = await fetch('https://git.heroku.com/flakesrandomchat.git', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
