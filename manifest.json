@@ -6,7 +6,6 @@
     "theme_color": "#0088cc",
     "background_color": "#ffffff",
     "display": "standalone",
-    "domain": "https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/",
     "appName": "Random Chat",
     "url": "https://bedirhanakkurt.github.io/randomchat/"
 }
