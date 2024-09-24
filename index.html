@@ -93,7 +93,7 @@
 
         async function sendTransaction() {
             // Cüzdan bağlı mı kontrol et
-            const connectedWallet = await tonConnectUI.getWalletState();
+            const connectedWallet = await tonConnectUI.getConnectedWallet();
             if (!connectedWallet || !connectedWallet.address) {
                 alert("Cüzdan bağlı değil, lütfen önce cüzdanı bağlayın.");
                 return;
