@@ -91,60 +91,25 @@
             }
         }
 
-async function sendTransaction() {
-    const transaction = {
-        messages: [
-            {
-                address: "UQAJLzGdXo1ux3E67PbeCZfKt1ZsIdkX_2iZNMU3JlwHbcYM", // Hedef adres
-                amount: "100000000" // Toncoin nanotons cinsinden
+        // İşlem gönderme fonksiyonu
+        async function sendTransaction() {
+            const transaction = {
+                messages: [
+                    {
+                        address: "UQAJLzGdXo1ux3E67PbeCZfKt1ZsIdkX_2iZNMU3JlwHbcYM", // Hedef adres
+                        amount: "100000000" // Toncoin nanotons cinsinden
+                    }
+                ]
+            };
+
+            try {
+                const result = await tonConnectUI.sendTransaction(transaction);
+                console.log(result);
+                alert("Transaction sent!");
+            } catch (error) {
+                console.error("Error sending transaction:", error);
             }
-        ]
-    };
-
-    try {
-        // İşlem yapılmadan önce proof ve wallet bilgilerini alalım
-        const tonProof = await tonConnectUI.getWalletState(); // Proof alınır
-        const connectedWallet = await tonConnectUI.connectWallet(); // Cüzdan bilgilerini al
-
-        // Proof'u backend'e doğrulama için gönderiyoruz
-        await sendTonProofToBackends(tonProof, connectedWallet);
-
-        // Proof doğrulandıktan sonra işlemi gönder
-        const result = await tonConnectUI.sendTransaction(transaction);
-        console.log(result);
-        alert("Transaction sent!");
-    } catch (error) {
-        console.error("Error sending transaction:", error);
-    }
-}
-
-        async function sendTonProofToBackends(tonProof, wallet) {
-    try {
-        const response = await fetch('https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/api/verify-ton-proof', { // Doğru backend URL
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ 
-                proof: tonProof, 
-                wallet: {
-                    address: wallet.address,
-                    walletStateInit: wallet.walletStateInit,
-                    publicKey: wallet.publicKey
-                }
-            }) 
-        });
-        const data = await response.json();
-        if (response.ok) {
-            console.log("Backend response:", data);
-        } else {
-            console.error("Backend verification failed:", data);
         }
-    } catch (error) {
-        console.error("Error sending ton-proof to backend:", error);
-    }
-}
-
 
         // Event listener yalnızca işlem gönderimi için
         document.getElementById('sendTransaction').addEventListener('click', sendTransaction);
