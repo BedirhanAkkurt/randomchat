@@ -44,7 +44,7 @@
 
                 // Eğer ton-proof varsa backend'e gönder
                 if (newConnectedWallet.tonProof) {
-                    await sendTonProofToBackend(newConnectedWallet.tonProof);
+                    await sendTonProofToBackend(newConnectedWallet.tonProof, newConnectedWallet);
                 }
 
             } catch (error) {
@@ -53,14 +53,14 @@
         }
 
         // Ton-proof'u backend'e gönderme
-        async function sendTonProofToBackend(tonProof) {
+        async function sendTonProofToBackend(tonProof, wallet) {
             try {
                 const response = await fetch('https://flakesrandomchat.herokuapp.com/api/verify-ton-proof', { // Doğru backend URL
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ tonProof })
+                    body: JSON.stringify({ tonProof, wallet }) // Wallet bilgisi ile birlikte gönder
                 });
                 const data = await response.json();
                 console.log("Backend response:", data);
