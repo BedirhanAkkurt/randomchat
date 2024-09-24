@@ -35,7 +35,7 @@
                 }
 
                 // Bağlanma işlemi ve ton-proof alma
-                const newConnectedWallet = await tonConnectUI.connectWallet({ tonProof: { domain: { length: 20, value: 'https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/' } } });
+                const newConnectedWallet = await tonConnectUI.connectWallet({ tonProof: { domain: { length: 20, value: 'https://flakesrandomchat-a3ca16c7daa5.herokuapp.com//api/verify-ton-proof' } } });
                 console.log('Newly connected wallet with ton-proof:', newConnectedWallet);
                 document.getElementById('walletInfo').innerHTML = `
                     <p>Wallet connected!</p>
