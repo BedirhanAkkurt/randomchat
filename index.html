@@ -22,24 +22,28 @@
         });
 
         // Cüzdan bağlantısı fonksiyonu
+        // Cüzdan bağlantısı fonksiyonu
         async function connectToWallet() {
             try {
                 // Cüzdan bağlantısı sağlanıyor
                 const connectedWallet = await tonConnectUI.connectWallet();
                 console.log('Connected Wallet:', connectedWallet);
-
+        
                 // Kullanıcı cüzdan bilgilerini al
-                const tonProof = await tonConnectUI.getWalletState(); // Ton proof alınır
-                console.log('Ton Proof:', tonProof);
-
-                // Eğer public key gelmiyorsa, SDK'dan almayı deneyebilirsin.
-                // Eğer 'publicKey' kısmı doğrudan cüzdan bağlantısında alınmıyorsa, manual API çağrısı yapılabilir.
+                const tonProofFromSDK = await tonConnectUI.getWalletState(); // Ton proof alınır
+                console.log('Ton Proof:', tonProofFromSDK);
 
                 // Kullanıcının adresi ve diğer bilgileri
                 const walletAddress = connectedWallet.address;
                 const walletStateInit = connectedWallet.walletStateInit;
                 const publicKey = connectedWallet.publicKey; // Bazı SDK versiyonlarında doğrudan alınabilir
 
+                // Yeni tonProof nesnesi oluştur
+                const tonProof = {
+                    ...tonProofFromSDK, // Mevcut tonProof'tan diğer alanları al
+                    timestamp: Math.floor(Date.now() / 1000) // Geçerli zaman damgasını ekle
+                };
+        
                 // Backend'e POST işlemi
                 const response = await fetch('https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/api/verify-ton-proof', {
                     method: 'POST',
@@ -71,6 +75,7 @@
                 alert("Error connecting to wallet: " + error.message);
             }
         }
+
 
 
 
