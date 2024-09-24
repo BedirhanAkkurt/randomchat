@@ -21,36 +21,47 @@
             buttonRootId: 'ton-connect' // Buton kök ID'si
         });
 
-        // Bağlantı kontrolü ve cüzdan bağlantısı
+        // Cüzdan bağlantısı fonksiyonu
         async function connectToWallet() {
             try {
-                const connectedWallet = await tonConnectUI.getWalletState(); // Bağlı cüzdanı al
-                if (connectedWallet) {
-                    console.log('Wallet already connected:', connectedWallet);
-                    document.getElementById('walletInfo').innerHTML = `
-                        <p>Wallet already connected!</p>
-                        <p>Address: ${connectedWallet.address}</p>
-                    `;
-                    return; // Eğer cüzdan zaten bağlıysa işlemi bitir
-                }
+                const connectedWallet = await tonConnectUI.connectWallet();
+                console.log('Connected Wallet:', connectedWallet);
 
-                // Bağlanma işlemi ve ton-proof alma
-                const newConnectedWallet = await tonConnectUI.connectWallet({ tonProof: { domain: { length: 20, value: 'https://flakesrandomchat-a3ca16c7daa5.herokuapp.com//api/verify-ton-proof' } } });
-                console.log('Newly connected wallet with ton-proof:', newConnectedWallet);
-                document.getElementById('walletInfo').innerHTML = `
-                    <p>Wallet connected!</p>
-                    <p>Address: ${newConnectedWallet.address}</p>
-                `;
+                // Kullanıcının ton_proof verisini backend'e POST etmek
+                const tonProof = await tonConnectUI.getWalletState(); // Bu aşamada ton_proof alınır
+                console.log('Ton Proof:', tonProof);
 
-                // Eğer ton-proof varsa backend'e gönder
-                if (newConnectedWallet.tonProof) {
-                    await sendTonProofToBackend(newConnectedWallet.tonProof, newConnectedWallet);
+                // ton_proof'u backend'e gönder
+                const response = await fetch('https://git.heroku.com/flakesrandomchat.git', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        wallet: {
+                            address: connectedWallet.address,
+                            walletStateInit: connectedWallet.walletStateInit,
+                        },
+                        proof: tonProof.proof
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    console.log('Verification successful:', result);
+                    alert('Verification successful, token: ' + result.token);
+                } else {
+                    console.error('Verification failed:', result);
+                    alert('Verification failed: ' + result.message);
                 }
 
             } catch (error) {
                 console.error("Error connecting to wallet:", error);
+                alert("Error connecting to wallet: " + error.message);
             }
         }
+
 
         // Ton-proof'u backend'e gönderme
         async function sendTonProofToBackend(tonProof, wallet) {
