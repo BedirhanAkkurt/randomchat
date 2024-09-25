@@ -78,13 +78,7 @@
         }
         // Cüzdan bağlantısının kontrol edilmesi
         async function isWalletConnected() {
-            try {
-                const walletState = await tonConnectUI.getWalletState();
-                return walletState && walletState.address; // Cüzdan adresi varsa bağlantı yapılmıştır
-            } catch (error) {
-                console.error("Error getting wallet state:", error);
-                return false;
-            }
+            return tonConnectUI.connected;
         }
         // İşlem gönderme fonksiyonu
         async function sendTransaction() {
