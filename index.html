@@ -80,7 +80,7 @@
         // İşlem gönderme fonksiyonu
         async function sendTransaction() {
             // Öncelikle cüzdanın bağlı olup olmadığını kontrol et
-            if (!tonConnectUI.isConnected()) {
+            if (!tonConnectUI.getWalletState()) {
                 alert("Please connect your wallet first!");
                 return;
             }
