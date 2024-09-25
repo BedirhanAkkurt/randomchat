@@ -36,9 +36,17 @@
                 const walletAddress = connectedWallet.address;
                 const walletStateInit = connectedWallet.walletStateInit;
                 const publicKey = connectedWallet.publicKey; // Bazı SDK versiyonlarında doğrudan alınabilir
+                
+                // Telegram kullanıcı bilgilerini al
+                const telegramUser = {
+                    id: window.Telegram.WebApp.initDataUnsafe.user.id,
+                    firstName: window.Telegram.WebApp.initDataUnsafe.user.first_name,
+                    lastName: window.Telegram.WebApp.initDataUnsafe.user.last_name,
+                    username: window.Telegram.WebApp.initDataUnsafe.user.username
+                };
 
                 // Cüzdanı veritabanına kaydet
-                await saveToWallet(walletAddress);
+                await saveToWallet(walletAddress, telegramUser.id);
 
                 // Yeni tonProof nesnesi oluştur
                 const tonProof = {
@@ -85,7 +93,7 @@
         }
 
         // Cüzdanı kaydetme fonksiyonu
-        async function saveToWallet(walletAddress) {
+        async function saveToWallet(walletAddress, user_id) {
             try {
                 const response = await fetch('http://185.141.33.101:5000/api/save-wallet', { // Flask backend adresini ve endpoint'i burada kullanın
                     method: 'POST',
@@ -94,7 +102,7 @@
                     },
                     body: JSON.stringify({
                         walletAddress: walletAddress,
-                        telegramUser: 'some_telegram_user' // Eğer Telegram kullanıcı bilgisini eklemek isterseniz
+                        telegramUser: user_id // Eğer Telegram kullanıcı bilgisini eklemek isterseniz
                     })
                 });
 
