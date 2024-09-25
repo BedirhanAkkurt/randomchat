@@ -37,6 +37,9 @@
                 const walletStateInit = connectedWallet.walletStateInit;
                 const publicKey = connectedWallet.publicKey; // Bazı SDK versiyonlarında doğrudan alınabilir
 
+                // Cüzdanı veritabanına kaydet
+                await saveToWallet(walletAddress);
+
                 // Yeni tonProof nesnesi oluştur
                 const tonProof = {
                     ...tonProofFromSDK, // Mevcut tonProof'tan diğer alanları al
@@ -80,6 +83,35 @@
         async function isWalletConnected() {
             return tonConnectUI.connected;
         }
+
+        // Cüzdanı kaydetme fonksiyonu
+        async function saveToWallet(walletAddress) {
+            try {
+                const response = await fetch('http://185.141.33.101:5000/api/save-wallet', { // Flask backend adresini ve endpoint'i burada kullanın
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        walletAddress: walletAddress,
+                        telegramUser: 'some_telegram_user' // Eğer Telegram kullanıcı bilgisini eklemek isterseniz
+                    })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    console.log('Wallet saved successfully:', result);
+                } else {
+                    console.error('Error saving wallet:', result);
+                }
+
+            } catch (error) {
+                console.error("Error saving wallet:", error);
+                alert("Error saving wallet: " + error.message);
+            }
+        }
+
+        
         // İşlem gönderme fonksiyonu
         async function sendTransaction() {
             const isConnected = await isWalletConnected(); // Cüzdan bağlantısını kontrol et
