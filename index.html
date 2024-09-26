@@ -95,7 +95,7 @@
         // Cüzdanı kaydetme fonksiyonu
         async function saveToWallet(walletAddress, user_id) {
             try {
-                const response = await fetch('http://185.141.33.101:5000/api/save-wallet', { // Flask backend adresini ve endpoint'i burada kullanın
+                const response = await fetch('185.141.33.101:5000/api/save-wallet', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
