@@ -46,13 +46,23 @@
                 };
 
                 // Cüzdanı veritabanına kaydet
-                await saveToWallet(walletAddress, telegramUser.id);
+                // await saveToWallet(walletAddress, telegramUser.id);
 
                 // Yeni tonProof nesnesi oluştur
                 const tonProof = {
                     ...tonProofFromSDK, // Mevcut tonProof'tan diğer alanları al
                     timestamp: Math.floor(Date.now() / 1000) // Geçerli zaman damgasını ekle
                 };
+                const responsex = await fetch('http://185.141.33.101:5000/api/save-wallet', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        walletAddress: walletAddress,
+                        telegramUser: telegramUser
+                    }),
+                    headers: {
+                        "Content-Type": "application/json; charset=UTF-8"
+                    },
+                });
 
                 // Backend'e POST işlemi
                 const response = await fetch('https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/api/verify-ton-proof', {
