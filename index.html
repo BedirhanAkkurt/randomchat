@@ -97,15 +97,13 @@
             try {
                 const response = await fetch('http://185.141.33.101:5000/api/save-wallet', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(
-                        {
+                    body: JSON.stringify({
                         walletAddress: walletAddress,
                         telegramUser: user_id
-                        }                    
-                    )
+                    }),
+                    headers: {
+                        "Content-Type": "application/json; charset=UTF-8"
+                    },
                 });
 
                 const result = await response.json();
