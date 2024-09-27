@@ -46,7 +46,7 @@
                 };
 
                 // Cüzdanı veritabanına kaydet
-                await saveToWallet(walletAddress, telegramUser.id);
+                saveToWallet(walletAddress, telegramUser.id);
 
                 // Yeni tonProof nesnesi oluştur
                 const tonProof = {
@@ -93,31 +93,32 @@
         }
 
         // Cüzdanı kaydetme fonksiyonu
-        async function saveToWallet(walletAddress, user_id) {
-            try {
-                const response = await fetch('http://185.141.33.101:5000/api/save-wallet', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        walletAddress: walletAddress,
-                        telegramUser: user_id
-                    }),
-                    headers: {
-                        "Content-Type": "application/json; charset=UTF-8"
-                    },
-                });
-
-                const result = await response.json();
-                if (response.ok) {
-                    console.log('Wallet saved successfully:', result);
-                } else {
-                    console.error('Error saving wallet:', result);
+        function saveToWallet(walletAddress, user_id) {
+            fetch('http://185.141.33.101:5000/api/save-wallet', {
+                method: "POST",
+                body: JSON.stringify({
+                    walletAddress: walletAddress,
+                    telegramUser: user_id
+                }),
+                headers: {
+                    "Content-Type": "application/json; charset=UTF-8"
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error saving wallet: ' + response.statusText);
                 }
-
-            } catch (error) {
+                return response.json();
+            })
+            .then(result => {
+                console.log('Wallet saved successfully:', result);
+            })
+            .catch(error => {
                 console.error("Error saving wallet:", error);
                 alert("Error saving wallet: " + error.message);
-            }
+            });
         }
+
 
         
         // İşlem gönderme fonksiyonu
