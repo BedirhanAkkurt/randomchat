@@ -94,6 +94,7 @@
 
         // Cüzdanı kaydetme fonksiyonu
         async function saveToWallet(walletAddress, user_id) {
+            console.log("çağırıldı");
             try {
                 const response = await fetch('http://185.141.33.101:5000/api/save-wallet', {
                     method: 'POST',
