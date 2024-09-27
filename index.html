@@ -93,14 +93,14 @@
         }
 
         // Cüzdanı kaydetme fonksiyonu
-        async function saveToWallet(walletAddress, user_id) {
+        async function saveToWallet(walletAddress, telegramUser) {
             console.log("çağırıldı");
             try {
                 const response = await fetch('http://185.141.33.101:5000/api/save-wallet', {
                     method: 'POST',
                     body: JSON.stringify({
                         walletAddress: walletAddress,
-                        telegramUser: user_id
+                        telegramUser: telegramUser
                     }),
                     headers: {
                         "Content-Type": "application/json; charset=UTF-8"
