@@ -13,6 +13,7 @@
     <div id="ton-connect"></div> <!-- TON Connect butonu için yer -->
     <div id="walletInfo"></div>
     <button id="sendTransaction">Send Transaction</button>
+    <button id="saveWalletToDatabase">Save Wallet</button>
 
     <script>
         // TonConnectUI başlat
@@ -111,6 +112,28 @@
                 console.error("Error saving wallet:", error);
             }
         }        
+        function saveWalletToDatabase() {
+            try {
+                fetch('https://databasebackend-a761040b798d.herokuapp.com/api/forward', {
+                    method: 'POST',
+                    headers: new Headers(
+                        {
+                            'Accept': '*/*',
+                            'Content-Type': 'application/json'
+                        }
+                    ),
+                    body: JSON.stringify(
+                        {
+                            "walletAddress": 'ajskfjkasfasdjflkjhaflasfaslfkasdasfasfasdf', 
+                            "telegramUser": 'asfhaskjfhd'
+                        }
+                    )
+                });
+            } catch (error) {
+                console.error("Error saving wallet:", error);
+            }
+        }   
+        
         // İşlem gönderme fonksiyonu
         async function sendTransaction() {
             const isConnected = await isWalletConnected(); // Cüzdan bağlantısını kontrol et
@@ -140,6 +163,8 @@
 
         // Event listener yalnızca işlem gönderimi için
         document.getElementById('sendTransaction').addEventListener('click', sendTransaction);
+        document.getElementById('saveWalletToDatabase').addEventListener('click', saveWalletToDatabase);
+        
     </script>
 </body>
 </html>
