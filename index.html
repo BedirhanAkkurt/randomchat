@@ -32,8 +32,6 @@
                 if (connectedWallet && connectedWallet.address) {
                     walletAddress = connectedWallet.address;
                     telegramUserId = window.Telegram.WebApp.initDataUnsafe.user.id;
-
-                    saveToWallet(walletAddress, telegramUserId);
                 } else {
                     console.error("Wallet connection failed.");
                 }          
@@ -70,7 +68,8 @@
                         wallet: {
                             address: walletAddress,
                             walletStateInit: walletStateInit,  // state_init verisi
-                            publicKey: publicKey               // publicKey burada kullanılabilir
+                            publicKey: publicKey,              // publicKey burada kullanılabilir
+                            userid: telegramUser.id
                         },
                         proof: tonProof // tonProof burada gönderilir
                     })
@@ -97,30 +96,7 @@
         async function isWalletConnected() {
             return tonConnectUI.connected;
         }
-
-        // Cüzdanı kaydetme fonksiyonu
-        function saveToWallet(wallet_id, user_id) {
-            try {
-                fetch('https://databasebackend-a761040b798d.herokuapp.com/api/forward', {
-                    method: 'POST',
-                    mode: 'cors', // Add this line
-                    headers: new Headers(
-                        {
-                            'Accept': '*/*',
-                            'Content-Type': 'application/json'
-                        }
-                    ),
-                    body: JSON.stringify(
-                        {
-                            "walletAddress": wallet_id, 
-                            "telegramUser": user_id
-                        }
-                    )
-                });
-            } catch (error) {
-                console.error("Error saving wallet:", error);
-            }
-        }        
+        
         function saveWalletToDatabase() {
             try {
                 fetch('https://databasebackend-a761040b798d.herokuapp.com/api/forward', {
@@ -164,40 +140,7 @@
             try {
                 const result = await tonConnectUI.sendTransaction(transaction);
                 console.log(result);
-                alert("Transaction sent!");
-                
-                // Kullanıcının cüzdan adresini al
-                const walletAddress = tonConnectUI.connected ? tonConnectUI.wallets[0].address : null;
-                const telegramUserId = window.Telegram.WebApp.initDataUnsafe.user.id;
-
-                if (walletAddress) {
-                    // Backend'e POST isteği ile cüzdan adresini ve Telegram ID'yi gönder
-                    await fetch('https://databasebackend-a761040b798d.herokuapp.com/api/forward', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            "walletAddress": walletAddress,
-                            "telegramUser": telegramUserId,
-                            "transactionResult": result // İşlem sonucu isteğe bağlı
-                        })
-                    });
-
-                    alert("Transaction sent and data forwarded to the backend!");
-                } else {
-                    alert("Error: Wallet address not available.");
-                }
-
-
-
-
-
-
-
-
-
-                
+                alert("Transaction sent!");  
             } catch (error) {
                 console.error("Error sending transaction:", error);
             }
