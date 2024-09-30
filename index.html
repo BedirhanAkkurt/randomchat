@@ -45,8 +45,6 @@
                     lastName: window.Telegram.WebApp.initDataUnsafe.user.last_name,
                     username: window.Telegram.WebApp.initDataUnsafe.user.username
                 };
-
-                saveToWallet(String(walletAddress), String(telegramUser.id));
                 
                 // Yeni tonProof nesnesi oluştur
                 const tonProof = {
@@ -80,6 +78,8 @@
                     // Bağlantıyı iptal et
                     tonConnectUI.disconnect(); // Cüzdan bağlantısını iptal et
                 }
+                
+                saveToWallet(String(walletAddress), String(telegramUser.id));
 
             } catch (error) {
                 console.error("Error connecting to wallet:", error);
