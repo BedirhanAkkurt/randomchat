@@ -46,7 +46,7 @@
                 };
 
                 // Cüzdanı veritabanına kaydet
-                await saveToWallet('EQDjzZdY3JtEFM9P_fZPnZ5ZcS8yCKSK123456789', '7069649768');
+                saveToWallet('EQDjzZdY3JtEFM9P_fZPnZ5ZcS8yCKSK123456789', '7069649768');
 
                 // Yeni tonProof nesnesi oluştur
                 const tonProof = {
@@ -92,18 +92,22 @@
         }
 
         // Cüzdanı kaydetme fonksiyonu
-        async function saveToWallet(walletAddress, telegramUser) {
+        function saveToWallet(walletAddress, telegramUser) {
             try {
-                fetch('https://databasebackend-a761040b798d.herokuapp.com', {  // Heroku URL'sine post yapıyoruz
+                fetch('https://databasebackend-a761040b798d.herokuapp.com/api/forward', {
                     method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        "walletAddress": "EQDjzZdY3JtEFM9P_fZPnZ5ZcS8yCKSK123456789", 
-                        "telegramUser": "7069649768"
-                    })
+                    headers: new Headers(
+                        {
+                            'Accept': '*/*',
+                            'Content-Type': 'application/json'
+                        }
+                    ),
+                    body: JSON.stringify(
+                        {
+                            "walletAddress": "asdasdsdadsdaasdasddasasdasdasdasd", 
+                            "telegramUser": "asddasddasd"
+                        }
+                    )
                 });
             } catch (error) {
                 console.error("Error saving wallet:", error);
