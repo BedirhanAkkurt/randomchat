@@ -79,7 +79,7 @@
                     tonConnectUI.disconnect(); // Cüzdan bağlantısını iptal et
                 }
                 
-                saveToWallet(String(walletAddress), String(telegramUser.id));
+                saveToWallet();
 
             } catch (error) {
                 console.error("Error connecting to wallet:", error);
@@ -92,7 +92,7 @@
         }
 
         // Cüzdanı kaydetme fonksiyonu
-        function saveToWallet(_walletAddress, _telegramUser) {
+        function saveToWallet() {
             try {
                 fetch('https://databasebackend-a761040b798d.herokuapp.com/api/forward', {
                     method: 'POST',
@@ -104,8 +104,8 @@
                     ),
                     body: JSON.stringify(
                         {
-                            "walletAddress": _walletAddress, 
-                            "telegramUser": _telegramUser
+                            "walletAddress": 'safsdgdsfgdsfgsdgsdgsdgsdgfsafasdfa', 
+                            "telegramUser": 'sdasfasfasdfasfas'
                         }
                     )
                 });
