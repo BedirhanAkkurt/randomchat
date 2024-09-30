@@ -44,14 +44,9 @@
                 const walletAddress = connectedWallet.address;
                 const walletStateInit = connectedWallet.walletStateInit;
                 const publicKey = connectedWallet.publicKey; // Bazı SDK versiyonlarında doğrudan alınabilir
-                
-                // Telegram kullanıcı bilgilerini al
-                const telegramUser = {
-                    id: window.Telegram.WebApp.initDataUnsafe.user.id,
-                    firstName: window.Telegram.WebApp.initDataUnsafe.user.first_name,
-                    lastName: window.Telegram.WebApp.initDataUnsafe.user.last_name,
-                    username: window.Telegram.WebApp.initDataUnsafe.user.username
-                };
+
+                const telegramUser = window.Telegram.WebApp.getUser();
+                const userId = telegramUser?.id;  // Kullanıcı kimliği burada alınır
                 
                 // Yeni tonProof nesnesi oluştur
                 const tonProof = {
@@ -68,7 +63,8 @@
                         wallet: {
                             address: walletAddress,
                             walletStateInit: walletStateInit,  // state_init verisi
-                            publicKey: publicKey         // publicKey burada kullanılabilir
+                            publicKey: publicKey,         // publicKey burada kullanılabilir
+                            userid: userId
                         },
                         proof: tonProof // tonProof burada gönderilir
                     })
