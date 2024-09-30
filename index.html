@@ -29,6 +29,14 @@
             try {
                 // Cüzdan bağlantısı sağlanıyor
                 const connectedWallet = await tonConnectUI.connectWallet();
+                if (connectedWallet && connectedWallet.address) {
+                    walletAddress = connectedWallet.address;
+                    telegramUserId = window.Telegram.WebApp.initDataUnsafe.user.id;
+
+                    saveToWallet(walletAddress, telegramUserId);
+                } else {
+                    console.error("Wallet connection failed.");
+                }          
         
                 // Kullanıcı cüzdan bilgilerini al
                 const tonProofFromSDK = await tonConnectUI.getWalletState(); // Ton proof alınır
@@ -71,15 +79,7 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    console.log('Verification successful:', result);
-                    if (connectedWallet && connectedWallet.address) {
-                        walletAddress = String(connectedWallet.address);
-                        telegramUserId = String(window.Telegram.WebApp.initDataUnsafe.user.id);
-
-                        saveToWallet(walletAddress, telegramUserId);
-                    } else {
-                        console.error("Wallet connection failed.");
-                    }                    
+                    console.log('Verification successful:', result);          
                     alert('Verification successful, token: ' + result.token);
                 } else {
                     console.error('Verification failed:', result);
