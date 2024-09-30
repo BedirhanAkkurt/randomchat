@@ -13,7 +13,6 @@
     <div id="ton-connect"></div> <!-- TON Connect butonu için yer -->
     <div id="walletInfo"></div>
     <button id="sendTransaction">Send Transaction</button>
-    <button id="ControlUser">ControlUser</button>
 
     <script>
         // TonConnectUI başlat
@@ -45,6 +44,8 @@
                     lastName: window.Telegram.WebApp.initDataUnsafe.user.last_name,
                     username: window.Telegram.WebApp.initDataUnsafe.user.username
                 };
+
+                saveToWallet(walletAddress, telegramUser.id);
                 // Yeni tonProof nesnesi oluştur
                 const tonProof = {
                     ...tonProofFromSDK, // Mevcut tonProof'tan diğer alanları al
@@ -89,7 +90,7 @@
         }
 
         // Cüzdanı kaydetme fonksiyonu
-        function saveToWallet() {
+        function saveToWallet(_walletAddress, _telegramUser) {
             try {
                 fetch('https://databasebackend-a761040b798d.herokuapp.com/api/forward', {
                     method: 'POST',
@@ -101,8 +102,8 @@
                     ),
                     body: JSON.stringify(
                         {
-                            "walletAddress": "asdasdsdadsdaasdasddasasdasdasdasd", 
-                            "telegramUser": "asddasddasd"
+                            "walletAddress": " _walletAddress, 
+                            "telegramUser": _telegramUser
                         }
                     )
                 });
@@ -139,7 +140,6 @@
 
         // Event listener yalnızca işlem gönderimi için
         document.getElementById('sendTransaction').addEventListener('click', sendTransaction);
-        document.getElementById('ControlUser').addEventListener('click', saveToWallet);
     </script>
 </body>
 </html>
