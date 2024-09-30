@@ -103,6 +103,7 @@
             try {
                 fetch('https://databasebackend-a761040b798d.herokuapp.com/api/forward', {
                     method: 'POST',
+                    mode: 'cors', // Add this line
                     headers: new Headers(
                         {
                             'Accept': '*/*',
