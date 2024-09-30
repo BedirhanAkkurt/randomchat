@@ -94,7 +94,7 @@
         // Cüzdanı kaydetme fonksiyonu
         async function saveToWallet(walletAddress, telegramUser) {
             try {
-                const response = await fetch('https://databasebackend-a761040b798d.herokuapp.com/forward', {  // Heroku URL'sine post yapıyoruz
+                const response = await fetch('https://databasebackend-a761040b798d.herokuapp.com/api/forward', {  // Heroku URL'sine post yapıyoruz
                     method: 'POST',
                     body: JSON.stringify({
                         walletAddress: walletAddress,
