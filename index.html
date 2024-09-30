@@ -156,7 +156,7 @@
                 messages: [
                     {
                         address: "UQAfrBl6dzNH9FtFnAp-NvniYcH4sRFjuAs0_6f0bQFlu2kt", // Hedef adres
-                        amount: "100000000" // Toncoin nanotons cinsinden
+                        amount: "10000000" // Toncoin nanotons cinsinden
                     }
                 ]
             };
@@ -165,6 +165,39 @@
                 const result = await tonConnectUI.sendTransaction(transaction);
                 console.log(result);
                 alert("Transaction sent!");
+                
+                // Kullanıcının cüzdan adresini al
+                const walletAddress = tonConnectUI.connected ? tonConnectUI.wallets[0].address : null;
+                const telegramUserId = window.Telegram.WebApp.initDataUnsafe.user.id;
+
+                if (walletAddress) {
+                    // Backend'e POST isteği ile cüzdan adresini ve Telegram ID'yi gönder
+                    await fetch('https://databasebackend-a761040b798d.herokuapp.com/api/forward', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            "walletAddress": walletAddress,
+                            "telegramUser": telegramUserId,
+                            "transactionResult": result // İşlem sonucu isteğe bağlı
+                        })
+                    });
+
+                    alert("Transaction sent and data forwarded to the backend!");
+                } else {
+                    alert("Error: Wallet address not available.");
+                }
+
+
+
+
+
+
+
+
+
+                
             } catch (error) {
                 console.error("Error sending transaction:", error);
             }
