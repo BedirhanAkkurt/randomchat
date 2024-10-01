@@ -33,6 +33,10 @@
             }
         }
 
+        // Cüzdan bağlantısının kontrol edilmesi
+        async function isWalletConnected() {
+            return tonConnectUI.connected;
+        }
         
         // İşlem gönderme fonksiyonu
         async function sendTransaction() {
