@@ -20,6 +20,29 @@
             manifestUrl: 'https://raw.githubusercontent.com/BedirhanAkkurt/randomchat/refs/heads/main/tonconnect-manifest.json',
             buttonRootId: 'ton-connect' // Buton kök ID'si
         });
+        
+        // Cüzdan bağlantısı olayı dinleyici
+        tonConnectUI.onStatusChange((walletState) => {
+            if (walletState) {
+                console.log("Wallet state received:", walletState);
+
+                // Cüzdan adresini ve publicKey'i alma
+                const walletAddress = walletState.account.address;
+                const publicKey = walletState.account.publicKey;
+
+                // Konsola bastırma (isteğe bağlı, cüzdan bilgilerini burada işleyebilirsin)
+                console.log("Wallet Address:", walletAddress);
+                console.log("Public Key:", publicKey);
+
+                // Bilgileri HTML'de gösterme
+                document.getElementById('walletInfo').innerText = `
+                    Wallet Address: ${walletAddress}
+                    Public Key: ${publicKey}
+                `;
+            } else {
+                console.log("No wallet connected.");
+            }
+        });
 
         // Cüzdan bağlantısı fonksiyonu
         async function connectToWallet() {
