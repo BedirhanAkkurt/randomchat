@@ -13,6 +13,7 @@
     <h1>Welcome to Telegram Web App</h1>
     <div id="ton-connect"></div>
     <div id="walletInfo"></div>
+    <button id="connectWallet">Connect Wallet</button>
     <button id="sendTransaction">Send Transaction</button>
     <div id="status"></div>
 
@@ -35,26 +36,29 @@
             try {
                 updateStatus('Connecting to wallet...');
                 const connectedWallet = await tonConnectUI.connectWallet();
-                if (connectedWallet && connectedWallet.address) {
-                    walletAddress = connectedWallet.address;
+                if (connectedWallet && connectedWallet.account) {
+                    walletAddress = connectedWallet.account.address;
                     const tg = window.Telegram.WebApp;
                     telegramUserId = tg.initDataUnsafe?.user?.id;
                     updateStatus('Wallet connected. Verifying...');
+                    await verifyWallet(connectedWallet);
                 } else {
                     updateStatus('Wallet connection failed.');
                     return;
                 }          
-        
-                const tonProofFromSDK = await tonConnectUI.getWalletState();
+            } catch (error) {
+                console.error("Error connecting to wallet:", error);
+                updateStatus("Error: " + error.message);
+            }
+        }
+
+        async function verifyWallet(connectedWallet) {
+            try {
+                const tonProofFromSDK = await tonConnectUI.requestTonProof();
                 console.log('Ton Proof:', tonProofFromSDK);
 
-                const walletStateInit = connectedWallet.walletStateInit;
-                const publicKey = connectedWallet.publicKey; 
-
-                const tonProof = {
-                    ...tonProofFromSDK,
-                    timestamp: Math.floor(Date.now() / 1000)
-                };
+                const walletStateInit = connectedWallet.account.state_init;
+                const publicKey = connectedWallet.account.public_key;
 
                 updateStatus('Sending verification request...');
                 const response = await fetch(`${BACKEND_URL}/api/verify-ton-proof`, {
@@ -69,7 +73,7 @@
                             publicKey: publicKey,        
                             userid: telegramUserId
                         },
-                        tonProof: tonProof
+                        tonProof: tonProofFromSDK
                     })
                 });
 
@@ -83,10 +87,9 @@
                     updateStatus('Verification failed: ' + result.message);
                     tonConnectUI.disconnect();
                 }
-                
             } catch (error) {
-                console.error("Error connecting to wallet:", error);
-                updateStatus("Error: " + error.message);
+                console.error("Error verifying wallet:", error);
+                updateStatus("Error verifying wallet: " + error.message);
             }
         }
 
@@ -122,12 +125,21 @@
             }
         }
 
+        document.getElementById('connectWallet').addEventListener('click', connectToWallet);
         document.getElementById('sendTransaction').addEventListener('click', sendTransaction);
-        
-        tonConnectUI.onConnected(connectToWallet);
 
         // Initialize Telegram WebApp
         window.Telegram.WebApp.ready();
+
+        // Listen for wallet connection events
+        tonConnectUI.onStatusChange(async (wallet) => {
+            if (wallet) {
+                updateStatus('Wallet connected. Verifying...');
+                await verifyWallet(wallet);
+            } else {
+                updateStatus('Wallet disconnected.');
+            }
+        });
     </script>
 </body>
 </html>
