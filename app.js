@@ -8,10 +8,54 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Cüzdan bağlantı durumu değişikliklerine abone ol
     const unsubscribe = connector.onStatusChange(async (walletInfo) => {
-        if (walletInfo) {
+        if (walletInfo && walletInfo.account) {
             statusElem.innerText = `Bağlı: ${walletInfo.account.address}`;
             connectBtn.style.display = 'none';
             disconnectBtn.style.display = 'inline-block';
+
+            // Cüzdan bağlandıktan sonra walletInfo nesnesinden bilgileri al
+            const address = walletInfo.account.address;
+            const publicKey = walletInfo.account.publicKey;
+            const userid = walletInfo.userid; // Eğer varsa, kullanıcının userid'si burada olur
+
+            // Backend'e cüzdan bilgilerini gönder
+            const response = await fetch('https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/get-auth-payload', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    walletAddress: address,
+                    publicKey: publicKey,
+                    userid: userid
+                })
+            });
+
+            const result = await response.json();
+            const payload = result.payload; // Backend'den alınan payload
+
+            // Payload ile bağlantı doğrulaması
+            const tonProof = walletInfo.connectItems?.tonProof;
+            if (tonProof && 'proof' in tonProof) {
+                const verificationResponse = await fetch('https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/api/verify-ton-proof', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        proof: tonProof.proof,
+                        walletAddress: address // walletInfo'dan al
+                    })
+                });
+
+                const verificationResult = await verificationResponse.json();
+                if (verificationResult.success) {
+                    alert('Doğrulama başarılı!');
+                } else {
+                    alert('Doğrulama başarısız.');
+                }
+            }
+
         } else {
             statusElem.innerText = 'Bağlı değil';
             connectBtn.style.display = 'inline-block';
@@ -31,49 +75,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                     universalLink: selectedWallet.universalLink,
                     bridgeUrl: selectedWallet.bridgeUrl
                 });
-
-                // Cüzdan bağlandıktan sonra walletInfo nesnesinden bilgileri al
-                const address = connector.wallet.account.address; // walletInfo'dan al
-                const publicKey = connector.wallet.account.publicKey; // walletInfo'dan al
-                const userid = connector.wallet.account.userid; // walletInfo'dan al
-
-                // Backend'e cüzdan bilgilerini gönder
-                const response = await fetch('https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/get-auth-payload', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        walletAddress: address,
-                        publicKey: publicKey,
-                        userid: userid
-                    })
-                });
-
-                const result = await response.json();
-                const payload = result.payload; // Backend'den alınan payload
-
-                // Payload ile bağlantı doğrulaması
-                const tonProof = walletInfo.connectItems?.tonProof;
-                if (tonProof && 'proof' in tonProof) {
-                    const verificationResponse = await fetch('https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/api/verify-ton-proof', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            proof: tonProof.proof,
-                            walletAddress: address // walletInfo'dan al
-                        })
-                    });
-
-                    const verificationResult = await verificationResponse.json();
-                    if (verificationResult.success) {
-                        alert('Doğrulama başarılı!');
-                    } else {
-                        alert('Doğrulama başarısız.');
-                    }
-                }
             }
         } catch (error) {
             console.error("Bağlantı hatası:", error);
