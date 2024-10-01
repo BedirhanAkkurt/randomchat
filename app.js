@@ -1,115 +1,86 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM fully loaded and parsed."); // Konsolda bu mesajı görmelisiniz.
+document.addEventListener('DOMContentLoaded', async () => {
+    const connectBtn = document.getElementById('connectBtn');
+    const disconnectBtn = document.getElementById('disconnectBtn');
+    const statusElem = document.getElementById('status');
 
-    if (window.Telegram && window.Telegram.WebApp) {
-        console.log("Telegram WebApp detected.");
+    // TonConnect SDK ile bağlantıyı başlat
+    const connector = new TonConnectSDK.TonConnect();
 
-        window.Telegram.WebApp.ready();
+    // Cüzdan bağlantı durumu değişikliklerine abone ol
+    const unsubscribe = connector.onStatusChange(async (walletInfo) => {
+        if (walletInfo) {
+            statusElem.innerText = `Bağlı: ${walletInfo.account.address}`;
 
-        const walletInfo = document.getElementById('walletInfo');
+            // TonProof ile bağlantı doğrulaması
+            const tonProof = walletInfo.connectItems?.tonProof;
+            if (tonProof && 'proof' in tonProof) {
+                // Backend'e tonProof'u gönder
+                const response = await fetch('https://your-backend-url.com/verify-tonproof', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        proof: tonProof.proof,
+                        walletAddress: walletInfo.account.address
+                    })
+                });
 
-        // TON Connect UI'yi başlatın
-        if (typeof TON_CONNECT_UI !== 'undefined' && typeof TON_CONNECT_UI.TonConnectUI !== 'undefined') {
-            console.log("TonConnectUI loaded correctly.");
-
-            const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-                manifestUrl: 'https://raw.githubusercontent.com/BedirhanAkkurt/randomchat/refs/heads/main/tonconnect-manifest.json',
-                buttonRootId: 'ton-connect'
-            });
-
-            // Cüzdan bağlantısı fonksiyonu
-            async function connectToWallet() {
-                try {
-                    const connectedWallet = await tonConnectUI.connectWallet();
-                    console.log('Connected Wallet:', connectedWallet);
-
-                    // Kullanıcının ton_proof verisini backend'e POST etmek
-                    const tonProof = await tonConnectUI.getWalletState(); // Bu aşamada ton_proof alınır
-                    console.log('Ton Proof:', tonProof);
-
-                    // ton_proof'u backend'e gönder
-                    const response = await fetch('https://git.heroku.com/flakesrandomchat.git', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            wallet: {
-                                address: connectedWallet.address,
-                                walletStateInit: connectedWallet.walletStateInit,
-                            },
-                            proof: tonProof.proof
-                        })
-                    });
-
-                    const result = await response.json();
-
-                    if (response.ok) {
-                        console.log('Verification successful:', result);
-                        alert('Verification successful, token: ' + result.token);
-                    } else {
-                        console.error('Verification failed:', result);
-                        alert('Verification failed: ' + result.message);
-                    }
-
-                } catch (error) {
-                    console.error("Error connecting to wallet:", error);
-                    alert("Error connecting to wallet: " + error.message);
+                const result = await response.json();
+                if (result.success) {
+                    alert('Doğrulama başarılı!');
+                } else {
+                    alert('Doğrulama başarısız.');
                 }
             }
 
-            // İşlem gönderme fonksiyonu
-            async function sendTransaction() {
-                const transaction = {
-                    messages: [
-                        {
-                            address: "UQAJLzGdXo1ux3E67PbeCZfKt1ZsIdkX_2iZNMU3JlwHbcYM", // Hedef adres
-                            amount: "10000000" // Toncoin nanotons cinsinden
-                        }
-                    ]
-                };
-
-                try {
-                    const result = await tonConnectUI.sendTransaction(transaction);
-                    console.log(result);
-                    alert("Transaction sent!");
-                } catch (error) {
-                    console.error("Error sending transaction:", error);
-                    alert("Transaction failed: " + error.message); // Hata mesajını göster
-                }
-            }
-
-            // Event listener ekleme
-            const connectBtn = document.getElementById('connectBtn');
-            if (connectBtn) {
-                connectBtn.addEventListener('click', connectToWallet);
-                console.log("Connect to Wallet button event listener attached.");
-            } else {
-                console.error("Connect button not found in DOM.");
-            }
-
-            const sendTransactionBtn = document.getElementById('sendTransaction');
-            if (sendTransactionBtn) {
-                sendTransactionBtn.addEventListener('click', sendTransaction);
-                console.log("Send Transaction button event listener attached.");
-            } else {
-                console.error("Send Transaction button not found in DOM.");
-            }
-
-            // Telegram kullanıcı bilgilerini alma
-            const user = window.Telegram.WebApp.initDataUnsafe?.user;
-            if (user) {
-                walletInfo.innerHTML = `
-                    <p>Connected as: ${user.first_name} ${user.last_name || ''}</p>
-                    <p>Username: ${user.username || 'N/A'}</p>
-                `;
-            } else {
-                walletInfo.innerHTML = `<p>No user information found.</p>`;
-            }
+            connectBtn.style.display = 'none';
+            disconnectBtn.style.display = 'inline-block';
         } else {
-            console.error("TonConnectUI is not loaded.");
+            statusElem.innerText = 'Bağlı değil';
+            connectBtn.style.display = 'inline-block';
+            disconnectBtn.style.display = 'none';
         }
-    } else {
-        console.error("Telegram WebApp is not defined.");
+    });
+
+    // Cüzdanı bağla
+    connectBtn.addEventListener('click', async () => {
+        try {
+            const payloadResponse = await fetch('https://your-backend-url.com/get-auth-payload');
+            const { payload } = await payloadResponse.json();
+
+            const walletsList = await connector.getWallets();
+            const selectedWallet = walletsList.find(wallet => !wallet.injected); // Kullanıcının seçtiği cüzdan
+
+            if (selectedWallet) {
+                await connector.connect({
+                    universalLink: selectedWallet.universalLink,
+                    bridgeUrl: selectedWallet.bridgeUrl
+                }, {
+                    tonProof: payload
+                });
+            }
+        } catch (error) {
+            console.error("Bağlantı hatası:", error);
+            alert("Cüzdan bağlantısı sırasında bir hata oluştu.");
+        }
+    });
+
+    // Bağlantıyı kes
+    disconnectBtn.addEventListener('click', async () => {
+        try {
+            await connector.disconnect();
+            alert("Cüzdan bağlantısı kesildi.");
+        } catch (error) {
+            console.error("Bağlantı kesme hatası:", error);
+            alert("Bağlantıyı kesme sırasında bir hata oluştu.");
+        }
+    });
+
+    // Daha önce bağlanmış bir cüzdan varsa, bağlantıyı geri yükle
+    try {
+        await connector.restoreConnection();
+    } catch (error) {
+        console.log("Daha önce bağlantı yoktu:", error);
     }
 });
