@@ -10,50 +10,44 @@
 </head>
 <body>
     <h1>Welcome to Telegram Web App</h1>
-    <div id="ton-connect"></div> <!-- TON Connect butonu için yer -->
+    <div id="ton-connect"></div>
     <div id="walletInfo"></div>
     <button id="sendTransaction">Send Transaction</button>
-    <button id="saveWalletToDatabase">Save Wallet</button>
 
     <script>
         let walletAddress = '';
         let telegramUserId = '';
-        // TonConnectUI başlat
+
         const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
             manifestUrl: 'https://raw.githubusercontent.com/BedirhanAkkurt/randomchat/refs/heads/main/tonconnect-manifest.json',
-            buttonRootId: 'ton-connect' // Buton kök ID'si
+            buttonRootId: 'ton-connect'
         });
 
-        // Cüzdan bağlantısı fonksiyonu
         async function connectToWallet() {
             try {
-                // Cüzdan bağlantısı sağlanıyor
                 const connectedWallet = await tonConnectUI.connectWallet();
                 if (connectedWallet && connectedWallet.address) {
                     walletAddress = connectedWallet.address;
                     telegramUserId = window.Telegram.WebApp.initDataUnsafe.user.id;
                 } else {
                     console.error("Wallet connection failed.");
+                    return;
                 }          
         
-                // Kullanıcı cüzdan bilgilerini al
-                const tonProofFromSDK = await tonConnectUI.getWalletState(); // Ton proof alınır
+                const tonProofFromSDK = await tonConnectUI.getWalletState();
                 console.log('Ton Proof:', tonProofFromSDK);
 
-                // Kullanıcının adresi ve diğer bilgileri
-                const walletAddress = connectedWallet.address;
                 const walletStateInit = connectedWallet.walletStateInit;
-                const publicKey = connectedWallet.publicKey; // Bazı SDK versiyonlarında doğrudan alınabilir
+                const publicKey = connectedWallet.publicKey; 
 
-                const telegramUser = window.Telegram.WebApp.getUser();
-                const userId = telegramUser?.id;  // Kullanıcı kimliği burada alınır
+                const telegramUser = window.Telegram.WebApp.initDataUnsafe.user;
+                const userId = telegramUser?.id;
                 
-                // Yeni tonProof nesnesi oluştur
                 const tonProof = {
-                    ...tonProofFromSDK, // Mevcut tonProof'tan diğer alanları al
-                    timestamp: Math.floor(Date.now() / 1000) // Geçerli zaman damgasını ekle
+                    ...tonProofFromSDK,
+                    timestamp: Math.floor(Date.now() / 1000)
                 };
-                // Backend'e POST işlemi
+
                 const response = await fetch('https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/api/verify-ton-proof', {
                     method: 'POST',
                     headers: {
@@ -62,11 +56,11 @@
                     body: JSON.stringify({
                         wallet: {
                             address: walletAddress,
-                            walletStateInit: walletStateInit,  // state_init verisi
-                            publicKey: publicKey,         // publicKey burada kullanılabilir
+                            walletStateInit: walletStateInit,
+                            publicKey: publicKey,        
                             userid: userId
                         },
-                        proof: tonProof // tonProof burada gönderilir
+                        proof: tonProof
                     })
                 });
 
@@ -78,8 +72,7 @@
                 } else {
                     console.error('Verification failed:', result);
                     alert('Verification failed: ' + result.message);
-                    // Bağlantıyı iptal et
-                    tonConnectUI.disconnect(); // Cüzdan bağlantısını iptal et
+                    tonConnectUI.disconnect();
                 }
                 
             } catch (error) {
@@ -87,47 +80,24 @@
                 alert("Error connecting to wallet: " + error.message);
             }
         }
-        // Cüzdan bağlantısının kontrol edilmesi
+
         async function isWalletConnected() {
             return tonConnectUI.connected;
-        }
+        } 
         
-        function saveWalletToDatabase() {
-            try {
-                fetch('https://databasebackend-a761040b798d.herokuapp.com/api/forward', {
-                    method: 'POST',
-                    headers: new Headers(
-                        {
-                            'Accept': '*/*',
-                            'Content-Type': 'application/json'
-                        }
-                    ),
-                    body: JSON.stringify(
-                        {
-                            "walletAddress": 'ajskfjkasfasdjflkjhaflasfaslfkasdasfasfasdf', 
-                            "telegramUser": 'asfhaskjfhd'
-                        }
-                    )
-                });
-            } catch (error) {
-                console.error("Error saving wallet:", error);
-            }
-        }   
-        
-        // İşlem gönderme fonksiyonu
         async function sendTransaction() {
-            const isConnected = await isWalletConnected(); // Cüzdan bağlantısını kontrol et
+            const isConnected = await isWalletConnected();
             if (!isConnected) {
                 alert("Please connect your wallet first!");
                 return;
             }
 
             const transaction = {
-                validUntil: Math.floor(Date.now() / 1000) + 60, // 60 sec
+                validUntil: Math.floor(Date.now() / 1000) + 60,
                 messages: [
                     {
-                        address: "UQAfrBl6dzNH9FtFnAp-NvniYcH4sRFjuAs0_6f0bQFlu2kt", // Hedef adres
-                        amount: "10000000" // Toncoin nanotons cinsinden
+                        address: "UQAfrBl6dzNH9FtFnAp-NvniYcH4sRFjuAs0_6f0bQFlu2kt",
+                        amount: "10000000"
                     }
                 ]
             };
@@ -141,10 +111,10 @@
             }
         }
 
-        // Event listener yalnızca işlem gönderimi için
         document.getElementById('sendTransaction').addEventListener('click', sendTransaction);
-        document.getElementById('saveWalletToDatabase').addEventListener('click', saveWalletToDatabase);
         
+        // Cüzdan bağlantısı için event listener eklendi
+        tonConnectUI.onConnected(connectToWallet);
     </script>
 </body>
 </html>
