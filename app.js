@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 const walletInfo = await connector.getWalletInfo();
                 
                 // Backend'e cüzdan bilgilerini gönder
-                const response = await fetch('https://your-backend-url.com/get-auth-payload', {
+                const response = await fetch('https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/get-auth-payload', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Payload ile bağlantı doğrulaması
                 const tonProof = walletInfo.connectItems?.tonProof;
                 if (tonProof && 'proof' in tonProof) {
-                    const verificationResponse = await fetch('https://your-backend-url.com/api/verify-ton-proof', {
+                    const verificationResponse = await fetch('https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/api/verify-ton-proof', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
