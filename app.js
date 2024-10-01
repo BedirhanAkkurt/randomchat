@@ -10,30 +10,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const unsubscribe = connector.onStatusChange(async (walletInfo) => {
         if (walletInfo) {
             statusElem.innerText = `Bağlı: ${walletInfo.account.address}`;
-
-            // TonProof ile bağlantı doğrulaması
-            const tonProof = walletInfo.connectItems?.tonProof;
-            if (tonProof && 'proof' in tonProof) {
-                // Backend'e tonProof'u gönder
-                const response = await fetch('https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/api/verify-ton-proof', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        proof: tonProof.proof,
-                        walletAddress: walletInfo.account.address
-                    })
-                });
-
-                const result = await response.json();
-                if (result.success) {
-                    alert('Doğrulama başarılı!');
-                } else {
-                    alert('Doğrulama başarısız.');
-                }
-            }
-
             connectBtn.style.display = 'none';
             disconnectBtn.style.display = 'inline-block';
         } else {
@@ -46,19 +22,56 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Cüzdanı bağla
     connectBtn.addEventListener('click', async () => {
         try {
-            const payloadResponse = await fetch('https://your-backend-url.com/get-auth-payload');
-            const { payload } = await payloadResponse.json();
-
+            // Cüzdan bağlantısını kur
             const walletsList = await connector.getWallets();
-            const selectedWallet = walletsList.find(wallet => !wallet.injected); // Kullanıcının seçtiği cüzdan
+            const selectedWallet = walletsList.find(wallet => !wallet.injected);
 
             if (selectedWallet) {
                 await connector.connect({
                     universalLink: selectedWallet.universalLink,
                     bridgeUrl: selectedWallet.bridgeUrl
-                }, {
-                    tonProof: payload
                 });
+                
+                // Cüzdan bağlandıktan sonra gerekli bilgileri al
+                const walletInfo = await connector.getWalletInfo();
+                
+                // Backend'e cüzdan bilgilerini gönder
+                const response = await fetch('https://your-backend-url.com/get-auth-payload', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        walletAddress: walletInfo.account.address,
+                        publicKey: walletInfo.account.publicKey, // Kullanıcının public key'ini burada alıyoruz
+                        userid: walletInfo.account.userid // Kullanıcının user ID'sini burada alıyoruz
+                    })
+                });
+
+                const result = await response.json();
+                const payload = result.payload; // Backend'den alınan payload
+
+                // Payload ile bağlantı doğrulaması
+                const tonProof = walletInfo.connectItems?.tonProof;
+                if (tonProof && 'proof' in tonProof) {
+                    const verificationResponse = await fetch('https://your-backend-url.com/api/verify-ton-proof', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            proof: tonProof.proof,
+                            walletAddress: walletInfo.account.address
+                        })
+                    });
+
+                    const verificationResult = await verificationResponse.json();
+                    if (verificationResult.success) {
+                        alert('Doğrulama başarılı!');
+                    } else {
+                        alert('Doğrulama başarısız.');
+                    }
+                }
             }
         } catch (error) {
             console.error("Bağlantı hatası:", error);
