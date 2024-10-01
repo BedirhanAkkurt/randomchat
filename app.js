@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const tonProof = walletInfo.connectItems?.tonProof;
             if (tonProof && 'proof' in tonProof) {
                 // Backend'e tonProof'u gönder
-                const response = await fetch('https://your-backend-url.com/verify-tonproof', {
+                const response = await fetch('https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/api/verify-ton-proof', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
