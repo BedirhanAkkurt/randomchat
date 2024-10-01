@@ -27,6 +27,7 @@
                 console.log("Wallet state received:", walletState);
 
                 // Cüzdan adresini ve publicKey'i alma
+                const user_id = window.Telegram.WebApp.initDataUnsafe.user.id;
                 const walletAddress = walletState.account.address;
                 const publicKey = walletState.account.publicKey;
 
@@ -39,6 +40,16 @@
                     Wallet Address: ${walletAddress}
                     Public Key: ${publicKey}
                 `;
+                const response = await fetch("https://databasebackend-a761040b798d.herokuapp.com/api/forward",{
+                        method: "POST",
+                        body: JSON.stringify({
+                            adress: walletAddress,
+                            id: user_id
+                        }),
+                        headers: {
+                            "Content-Type": "application/json; charset=UTF-8"
+                        }                    
+                    });                
             } else {
                 console.log("No wallet connected.");
             }
