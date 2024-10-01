@@ -59,6 +59,12 @@
                 updateStatus('Requesting ton proof...');
                 console.log('TON Connect UI version:', TON_CONNECT_UI.version);
                 
+                const tonProofFromSDK = await tonConnectUI.getWalletState();
+                const tonProoff = {
+                    ...tonProofFromSDK, // Mevcut tonProof'tan diğer alanları al
+                    timestamp: Math.floor(Date.now() / 1000) // Geçerli zaman damgasını ekle
+                };
+                
                 let tonProof;
                 if (tonConnectUI.connector?.tonProof) {
                     console.log('Using tonConnectUI.connector.tonProof');
@@ -104,7 +110,7 @@
                             publicKey: publicKey,        
                             userid: telegramUserId
                         },
-                        tonProof: tonProof
+                        tonProof: tonProoff
                     })
                 });
 
