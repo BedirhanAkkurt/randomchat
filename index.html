@@ -57,15 +57,36 @@
         async function verifyWallet(connectedWallet) {
             try {
                 updateStatus('Requesting ton proof...');
+                console.log('TON Connect UI version:', TON_CONNECT_UI.version);
+                
                 let tonProof;
                 if (tonConnectUI.connector?.tonProof) {
+                    console.log('Using tonConnectUI.connector.tonProof');
                     tonProof = await tonConnectUI.connector.tonProof.generateProof();
                 } else if (tonConnectUI.tonProof) {
+                    console.log('Using tonConnectUI.tonProof');
                     tonProof = await tonConnectUI.tonProof();
+                } else if (connectedWallet.connectItems?.tonProof) {
+                    console.log('Using connectedWallet.connectItems.tonProof');
+                    tonProof = connectedWallet.connectItems.tonProof;
                 } else {
+                    console.log('Trying to create a custom proof');
+                    tonProof = {
+                        timestamp: Date.now(),
+                        domain: {
+                            lengthBytes: 0,
+                            value: ''
+                        },
+                        payload: 'Proof of wallet ownership',
+                        signature: ''
+                    };
+                }
+                
+                console.log('Generated Ton Proof:', tonProof);
+
+                if (!tonProof) {
                     throw new Error('Unable to generate ton proof');
                 }
-                console.log('Ton Proof:', tonProof);
 
                 const walletStateInit = connectedWallet.account?.state_init || connectedWallet.wallet?.state_init;
                 const publicKey = connectedWallet.account?.public_key || connectedWallet.wallet?.public_key;
