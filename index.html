@@ -30,14 +30,16 @@
 
         function updateStatus(message) {
             document.getElementById('status').innerText = message;
+            console.log(message);
         }
 
         async function connectToWallet() {
             try {
                 updateStatus('Connecting to wallet...');
                 const connectedWallet = await tonConnectUI.connectWallet();
-                if (connectedWallet && connectedWallet.account) {
-                    walletAddress = connectedWallet.account.address;
+                console.log('Connected wallet:', connectedWallet);
+                if (connectedWallet) {
+                    walletAddress = connectedWallet.account?.address || connectedWallet.address;
                     const tg = window.Telegram.WebApp;
                     telegramUserId = tg.initDataUnsafe?.user?.id;
                     updateStatus('Wallet connected. Verifying...');
@@ -48,17 +50,25 @@
                 }          
             } catch (error) {
                 console.error("Error connecting to wallet:", error);
-                updateStatus("Error: " + error.message);
+                updateStatus("Error connecting to wallet: " + error.message);
             }
         }
 
         async function verifyWallet(connectedWallet) {
             try {
-                const tonProofFromSDK = await tonConnectUI.requestTonProof();
-                console.log('Ton Proof:', tonProofFromSDK);
+                updateStatus('Requesting ton proof...');
+                let tonProof;
+                if (tonConnectUI.connector?.tonProof) {
+                    tonProof = await tonConnectUI.connector.tonProof.generateProof();
+                } else if (tonConnectUI.tonProof) {
+                    tonProof = await tonConnectUI.tonProof();
+                } else {
+                    throw new Error('Unable to generate ton proof');
+                }
+                console.log('Ton Proof:', tonProof);
 
-                const walletStateInit = connectedWallet.account.state_init;
-                const publicKey = connectedWallet.account.public_key;
+                const walletStateInit = connectedWallet.account?.state_init || connectedWallet.wallet?.state_init;
+                const publicKey = connectedWallet.account?.public_key || connectedWallet.wallet?.public_key;
 
                 updateStatus('Sending verification request...');
                 const response = await fetch(`${BACKEND_URL}/api/verify-ton-proof`, {
@@ -73,7 +83,7 @@
                             publicKey: publicKey,        
                             userid: telegramUserId
                         },
-                        tonProof: tonProofFromSDK
+                        tonProof: tonProof
                     })
                 });
 
