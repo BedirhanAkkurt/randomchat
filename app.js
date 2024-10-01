@@ -33,9 +33,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
 
                 // Cüzdan bağlandıktan sonra walletInfo nesnesinden bilgileri al
-                const address = walletInfo.account.address; // walletInfo'dan al
-                const publicKey = walletInfo.account.publicKey; // walletInfo'dan al
-                const userid = walletInfo.account.userid; // walletInfo'dan al
+                const address = connector.wallet.account.address; // walletInfo'dan al
+                const publicKey = connector.wallet.account.publicKey; // walletInfo'dan al
+                const userid = connector.wallet.account.userid; // walletInfo'dan al
 
                 // Backend'e cüzdan bilgilerini gönder
                 const response = await fetch('https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/get-auth-payload', {
