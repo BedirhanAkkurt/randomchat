@@ -31,10 +31,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                     universalLink: selectedWallet.universalLink,
                     bridgeUrl: selectedWallet.bridgeUrl
                 });
-                
-                // Cüzdan bağlandıktan sonra gerekli bilgileri al
-                const walletInfo = await connector.getWalletInfo();
-                
+
+                // Cüzdan bağlandıktan sonra walletInfo nesnesinden bilgileri al
+                const walletInfo = await connector.getWalletInfo(); // Bu kısım kaldırılacak
+                const address = walletInfo.account.address; // walletInfo'dan al
+                const publicKey = walletInfo.account.publicKey; // walletInfo'dan al
+                const userid = walletInfo.account.userid; // walletInfo'dan al
+
                 // Backend'e cüzdan bilgilerini gönder
                 const response = await fetch('https://flakesrandomchat-a3ca16c7daa5.herokuapp.com/get-auth-payload', {
                     method: 'POST',
@@ -42,9 +45,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        walletAddress: walletInfo.account.address,
-                        publicKey: walletInfo.account.publicKey, // Kullanıcının public key'ini burada alıyoruz
-                        userid: walletInfo.account.userid // Kullanıcının user ID'sini burada alıyoruz
+                        walletAddress: address,
+                        publicKey: publicKey,
+                        userid: userid
                     })
                 });
 
@@ -61,7 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                         },
                         body: JSON.stringify({
                             proof: tonProof.proof,
-                            walletAddress: walletInfo.account.address
+                            walletAddress: address // walletInfo'dan al
                         })
                     });
 
