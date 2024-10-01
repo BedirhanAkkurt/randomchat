@@ -1,38 +1,41 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    margin: 0; /* Margin'i sıfırlayın */
-    height: 100vh; /* Yüksekliği tam sayfa yapın */
-    display: flex; /* Flexbox ile ortalayın */
-    flex-direction: column; /* Dikey olarak hizalayın */
-    justify-content: center; /* Yatay ortalama */
 }
 
 h1 {
     color: #333;
 }
 
-#ton-connect {
-    margin: 20px 0; /* Butonun çevresine boşluk ekleyin */
-    z-index: 1;
-}
-
-#connectBtn {
-    padding: 20px 40px; /* Buton içeriğini daha iyi ayarlayın */
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #0088cc;
-    color: white;
+button {
+    padding: 10px 20px;
+    margin-top: 20px;
     border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
     border-radius: 5px;
-    z-index: 2;
 }
 
-#connectBtn:hover {
-    background-color: #005f99;
+button:hover {
+    background-color: #0056b3;
 }
 
-#walletInfo {
-    margin-top: 20px; /* Bilgi kısmı için üstten boşluk */
+#status {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    color: #555;
 }
