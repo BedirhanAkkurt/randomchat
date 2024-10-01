@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
 
                 // Cüzdan bağlandıktan sonra walletInfo nesnesinden bilgileri al
-                const walletInfo = await connector.getWalletInfo(); // Bu kısım kaldırılacak
                 const address = walletInfo.account.address; // walletInfo'dan al
                 const publicKey = walletInfo.account.publicKey; // walletInfo'dan al
                 const userid = walletInfo.account.userid; // walletInfo'dan al
