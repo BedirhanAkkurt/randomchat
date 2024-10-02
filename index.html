@@ -109,6 +109,36 @@
             } else {
                 console.error("Telegram WebApp User ID alınamadı.");
             }
+    
+            let id;
+            const maxAttempts = 10;
+            let attempts = 0; // attempts değişkeni başlatılıyor
+
+            // setInterval ile user_id'yi kontrol eden fonksiyon
+            const interval = setInterval(async () => {
+                id = window.Telegram.WebApp?.initDataUnsafe?.user?.id;
+                attempts++;
+
+                if (id) {
+                    try {
+                        const response = await fetch(`https://databasebackend-a761040b798d.herokuapp.com/api/user-status?user_id=${id}`);
+                        const data = await response.json();
+
+                        if (data.premium) {
+                            document.getElementById('userStatus').innerText = 'PREMIUM';
+                        } else {
+                            document.getElementById('userStatus').innerText = 'NORMAL';
+                        }
+                    } catch (error) {
+                        console.error("Error fetching user status:", error);
+                    }
+
+                    clearInterval(interval); // ID bulundu, interval durduruluyor
+                } else if (attempts >= maxAttempts) {
+                    console.error("User ID alınamadı.");
+                    clearInterval(interval); // Maksimum deneme sayısına ulaşıldı, interval durduruluyor
+                }
+            }, 500); // 500 ms aralıklarla user_id'yi kontrol eder
         });
     </script>
 </body>
