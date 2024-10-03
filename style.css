@@ -2,17 +2,18 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
+  height: 100%; /* Sayfanın tamamını kapsar */
   overflow-x: hidden; /* Yatay kaydırmayı gizler */
-  overflow-y: auto; /* Dikey kaydırmayı gizler */
+  overflow-y: hidden; /* Dikey kaydırmayı gizler */
 }
 
 #mainpage { /* ID için # kullanılır */
     display: flex;
     flex-direction: column;
+    justify-content: space-between; /* İçeriği dikey olarak ortalar ve boşluk bırakır */
     align-items: center; /* İçeriği yatay olarak ortalar */
     background-color: #202125;
-    min-height: 100vh;
+    height: 100vh; /* Tüm ekranı kapsar */
     box-shadow: none;
     text-align: center;
 }
