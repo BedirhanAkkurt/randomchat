@@ -18,6 +18,10 @@ html, body {
     text-align: center;
 }
 
+#title {
+  color: #ffffff;
+}
+
 h1 {
     color: #333;
 }
