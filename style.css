@@ -18,12 +18,12 @@ html, body {
     text-align: center;
 }
 /* Scroll çubuğunu tamamen gizle */
-.ScrollableContainer::-webkit-scrollbar {
+#ScrollableContainer::-webkit-scrollbar {
   display: none; /* Scroll çubuğunu gizler */
   scrollbar-width: none; /* Firefox için scroll çubuğunu gizler */
 }
 
-.ScrollableContainer {
+#ScrollableContainer {
   color: #fff; /* Yazı rengi */
   width: 100%;
   height: 160px;
@@ -35,11 +35,11 @@ html, body {
   scroll-snap-type: x mandatory; /* Kaydırma sırasında her bir elemanın ortada durmasını sağlar */
 }
 
-.ScrollableContent {
+#ScrollableContent {
   width: 300%; /* İçerik genişliğini ayarlamak için */
 }
 
-.ContentItem {
+#ContentItem {
   background-color: #242529 ;
   flex: 1; /* Her elemanın eşit genişlikte olmasını sağlar */
   width: 100%; /* Her elemanın ekranın tamamını kaplamasını sağlar */
@@ -53,7 +53,7 @@ html, body {
   scroll-snap-align: center; /* Kaydırma sırasında elemanı ortalar */
 }
 
-.Title {
+#Title {
   margin: 0; /* Varsayılan üst ve alt boşlukları kaldırır */
   padding: 0; /* Varsayılan dolgu boşluğunu kaldırır */
   text-align: left; /* Yazıyı sola çeker */
@@ -63,7 +63,7 @@ html, body {
   /* Diğer stiller burada */
 }
 
-.Content{
+#Content{
   margin: 0; /* Varsayılan üst ve alt boşlukları kaldırır */
   padding: 0; /* Varsayılan dolgu boşluğunu kaldırır */
   text-align: left; /* Yazıyı sola çeker */
@@ -72,7 +72,7 @@ html, body {
   font-size: 16px; /* Yazı boyutunu ayarlar */
   /* Diğer stiller burada */
 }
-.ContentButton{
+#ContentButton{
   line-height: normal; /* Satır yüksekliğini normalleştirir */
   font-weight: 800;
   font-size: 14px; /* Yazı boyutunu ayarlar */
