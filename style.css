@@ -17,7 +17,42 @@ html, body {
     box-shadow: none;
     text-align: center;
 }
-
+#ContentItem {
+  background-color: #242529 ;
+  flex: 1; /* Her elemanın eşit genişlikte olmasını sağlar */
+  width: 100%; /* Her elemanın ekranın tamamını kaplamasını sağlar */
+  height: 150px; /* Eleman yüksekliği container yüksekliğiyle eşleşir */
+  flex-direction: column;
+  margin: 0px 20px;
+  border-radius: 20px;
+  padding: 20px 20px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  scroll-snap-align: center; /* Kaydırma sırasında elemanı ortalar */
+}
+#Content{
+  margin: 0; /* Varsayılan üst ve alt boşlukları kaldırır */
+  padding: 0; /* Varsayılan dolgu boşluğunu kaldırır */
+  text-align: left; /* Yazıyı sola çeker */
+  line-height: normal; /* Satır yüksekliğini normalleştirir */
+  font-weight: 600;
+  font-size: 16px; /* Yazı boyutunu ayarlar */
+  /* Diğer stiller burada */
+}
+#ContentButton{
+  line-height: normal; /* Satır yüksekliğini normalleştirir */
+  font-weight: 800;
+  font-size: 14px; /* Yazı boyutunu ayarlar */
+  width: 60px;
+  margin: 0 30px;
+  margin-top: auto;
+  margin-left: 0px;
+  box-shadow: none;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  height: 40px;
+}
 #title {
   color: white;
 }
