@@ -13,7 +13,6 @@ html, body {
     align-items: center; /* İçeriği yatay olarak ortalar */
     background-color: #202125;
     min-height: 100vh;
-    padding-bottom: 50px;
     box-shadow: none;
     text-align: center;
 }
