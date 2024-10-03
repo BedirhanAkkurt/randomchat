@@ -12,8 +12,8 @@ html, body {
     flex-direction: column;
     align-items: center; /* İçeriği yatay olarak ortalar */
     background-color: #202125;
-    padding: 20px;
-    border-radius: 10px;
+    min-height: 100vh;
+    padding-bottom: 50px;
     box-shadow: none;
     text-align: center;
 }
