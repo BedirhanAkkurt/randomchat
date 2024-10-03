@@ -7,7 +7,7 @@ html, body {
   overflow-y: auto; /* Dikey kaydırmayı gizler */
 }
 
-.container {
+.mainpage {
     flex-direction: column;
     align-items: center; /* İçeriği yatay olarak ortalar */
     background-color: #202125;
