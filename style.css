@@ -7,7 +7,8 @@ html, body {
   overflow-y: auto; /* Dikey kaydırmayı gizler */
 }
 
-.mainpage {
+#mainpage { /* ID için # kullanılır */
+    display: flex;
     flex-direction: column;
     align-items: center; /* İçeriği yatay olarak ortalar */
     background-color: #202125;
