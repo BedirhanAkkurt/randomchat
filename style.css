@@ -19,7 +19,7 @@ html, body {
 }
 
 #title {
-  color: #ffffff;
+  color: white;
 }
 
 button {
@@ -39,5 +39,5 @@ button:hover {
 #status {
     margin-bottom: 20px;
     font-size: 1.2em;
-    color: #555;
+    color: white;
 }
