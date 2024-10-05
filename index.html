@@ -190,16 +190,6 @@
         // Event listener yalnızca işlem gönderimi için
         document.getElementById('sendTransaction').addEventListener('click', sendTransaction);
         document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                window.Telegram.WebApp.ready(),
-                window.Telegram.WebApp.expand()
-            }, 1000); // 100 ms bekleyin
-
-            // Tema parametrelerini al ve sayfanın stilini uygula
-            window.Telegram.WebApp.setBackgroundColor('#242529');
-            window.Telegram.WebApp.setBottomBarColor('#242529');
-            window.Telegram.WebApp.setHeaderColor('#242529');
-
             const user_id = window.Telegram.WebApp?.initDataUnsafe?.user?.id;
             if (user_id) {
                 console.log("User ID:", user_id);
