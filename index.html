@@ -10,103 +10,103 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class='MainPage'>
-      <div class='MainPage-Logo-Container'>
-        <img src={images/logo.png} class="MainPage-Logo" alt="logo" />
-      </div>
-      <div class='MainPage-TokenCounter-Container'>
-        <p class='MainPage-TokenCounter-Counter'>
-          3,251
-        </p>
-        <p class='MainPage-TokenCounter-TokenName'>
-          FLAKES
-        </p>
-      </div>
-      <div class='ScrollableContainer' ref={scrollContainerRef}>
-        <div class='ScrollableContent'>
-          <div class='ContentItem'>
-            <p class='Title'>
-              FLAKES COMMUNITY
-            </p>
-            <p class='Content'>
-              Home for Telegram OGs!
-            </p>
-            <button class='ContentButton'>
-              Join
-            </button>
+    <div class='MainPage'>
+          <div class='MainPage-Logo-Container'>
+            <img src={images/logo.png} class="MainPage-Logo" alt="logo" />
           </div>
-          <div class='ContentItem'>
-            <p class='Title'>
-              FOLLOW ON INSTAGRAM
+          <div class='MainPage-TokenCounter-Container'>
+            <p class='MainPage-TokenCounter-Counter'>
+              3,251
             </p>
-            <p class='Content'>
-              Much more content!
+            <p class='MainPage-TokenCounter-TokenName'>
+              FLAKES
             </p>
-            <button class='ContentButton'>
-              Go
-            </button>
           </div>
-          <div class='ContentItem'>
-            <p class='Title'>
-              FOLLOW ON X
-            </p>
-            <p class='Content'>
-              We strong together!
-            </p>
-            <button class='ContentButton'>
-              Go
-            </button>
+          <div class='ScrollableContainer' ref={scrollContainerRef}>
+            <div class='ScrollableContent'>
+              <div class='ContentItem'>
+                <p class='Title'>
+                  FLAKES COMMUNITY
+                </p>
+                <p class='Content'>
+                  Home for Telegram OGs!
+                </p>
+                <button class='ContentButton'>
+                  Join
+                </button>
+              </div>
+              <div class='ContentItem'>
+                <p class='Title'>
+                  FOLLOW ON INSTAGRAM
+                </p>
+                <p class='Content'>
+                  Much more content!
+                </p>
+                <button class='ContentButton'>
+                  Go
+                </button>
+              </div>
+              <div class='ContentItem'>
+                <p class='Title'>
+                  FOLLOW ON X
+                </p>
+                <p class='Content'>
+                  We strong together!
+                </p>
+                <button class='ContentButton'>
+                  Go
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class='ScrollDots'>
-          {[...Array(3)].map((_, index) => (
-            <img
-              key={index}
-              src={images/dotImage.png}
-              alt={`Page ${index + 1}`}
-              class={index === activeIndex ? 'active' : ''}
-            />
-          ))}
-      </div>
-      <div class="horizontal-line"></div>
-      <div class='Tasks'>
-        <p class='Tasks-Title'>
-          TASKS
-        </p>
-        <div class='Task'>
-          <img class='Task1-Image' src={images/task1.png} alt='task 1 image'/>
-          <button class='Task-Guide'>
-            Gain Free Uranium Tokens!
-          </button>
-        </div>
-        <div class='Task'>
-          <img class='Task1-Image' src={images/task2.png} alt='task 2 image'/>
-          <button class='Task-Guide'>
-            Follow FLAKES COMMUNITY on X!
-          </button>
-        </div>
-        <div class='Task'>
-          <img class='Task1-Image' src={images/task3.png} alt='task 2 image'/>
-          <button class='Task-Guide'>
-            Follow FLAKES community on Facebook!
-          </button>
-        </div>
-        <div class='Task'>
-          <img class='Task1-Image' src={images/task4.png} alt='task 2 image'/>
-          <button class='Task-Guide'>
-            Follow FLAKES community on Instagram!
-          </button>
-        </div>
-        <div class='Task'>
-          <img class='Task1-Image' src={images/task5.png} alt='task 2 image'/>
-          <button class='Task-Guide'>
-            Follow FLAKES community on YouTube!
-          </button>
-        </div>
-      </div>
+          <div class='ScrollDots'>
+              {[...Array(3)].map((_, index) => (
+                <img
+                  key={index}
+                  src={images/dotImage.png}
+                  alt={`Page ${index + 1}`}
+                  class={index === activeIndex ? 'active' : ''}
+                />
+              ))}
+          </div>
+          <div class="horizontal-line"></div>
+          <div class='Tasks'>
+            <p class='Tasks-Title'>
+              TASKS
+            </p>
+            <div class='Task'>
+              <img class='Task1-Image' src={images/task1.png} alt='task 1 image'/>
+              <button class='Task-Guide'>
+                Gain Free Uranium Tokens!
+              </button>
+            </div>
+            <div class='Task'>
+              <img class='Task1-Image' src={images/task2.png} alt='task 2 image'/>
+              <button class='Task-Guide'>
+                Follow FLAKES COMMUNITY on X!
+              </button>
+            </div>
+            <div class='Task'>
+              <img class='Task1-Image' src={images/task3.png} alt='task 2 image'/>
+              <button class='Task-Guide'>
+                Follow FLAKES community on Facebook!
+              </button>
+            </div>
+            <div class='Task'>
+              <img class='Task1-Image' src={images/task4.png} alt='task 2 image'/>
+              <button class='Task-Guide'>
+                Follow FLAKES community on Instagram!
+              </button>
+            </div>
+            <div class='Task'>
+              <img class='Task1-Image' src={images/task5.png} alt='task 2 image'/>
+              <button class='Task-Guide'>
+                Follow FLAKES community on YouTube!
+              </button>
+            </div>
+          </div>
 
-    </div>
+        </div>
     </div>
 
     <script>
