@@ -8,16 +8,16 @@ html, body {
 }
 
 /* flex display */
-.MainPage, .MainPage-TokenCounter-Container, .ScrollableContent, .ContentItem, .ScrollDots {
+#MainPage, .MainPage-TokenCounter-Container, .ScrollableContent, .ContentItem, .ScrollDots {
   display: flex;
 }
 
 /* font style */
-.MainPage-TokenCounter-Container, .ContentItem, .ContentButton, .Tasks-Title {
+#MainPage-TokenCounter-Container, .ContentItem, .ContentButton, .Tasks-Title {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.MainPage {
+#MainPage {
   flex-direction: column;
   align-items: center; /* İçeriği yatay olarak ortalar */
   background-color: #202125;
@@ -26,12 +26,12 @@ html, body {
   padding-bottom: 50px;
 }
 
-.MainPage-Logo-Container {
+#MainPage-Logo-Container {
   width: 100%;
   margin-top: 100px;
 }
 
-.MainPage-Logo {
+#MainPage-Logo {
   width: 100%;
   object-fit: cover;
   animation: MainPage-logo-spin infinite 20s linear;
@@ -46,7 +46,7 @@ html, body {
   }
 }
 
-.MainPage-TokenCounter-Container {
+#MainPage-TokenCounter-Container {
   color: white;
   justify-content: center;
   align-items: center; /* İçeriği yatay olarak ortalar */
@@ -56,17 +56,17 @@ html, body {
   letter-spacing: 1.25px;
 }
 
-.MainPage-TokenCounter-Counter, .MainPage-TokenCounter-TokenName {
+#MainPage-TokenCounter-Counter, .MainPage-TokenCounter-TokenName {
   padding: 5px;
 }
 
 /* Scroll çubuğunu tamamen gizle */
-.ScrollableContainer::-webkit-scrollbar {
+#ScrollableContainer::-webkit-scrollbar {
   display: none; /* Scroll çubuğunu gizler */
   scrollbar-width: none; /* Firefox için scroll çubuğunu gizler */
 }
 
-.ScrollableContainer {
+#ScrollableContainer {
   color: #fff; /* Yazı rengi */
   width: 100%;
   height: 160px;
@@ -78,11 +78,11 @@ html, body {
   scroll-snap-type: x mandatory; /* Kaydırma sırasında her bir elemanın ortada durmasını sağlar */
 }
 
-.ScrollableContent {
+#ScrollableContent {
   width: 300%; /* İçerik genişliğini ayarlamak için */
 }
 
-.ContentItem {
+#ContentItem {
   background-color: #242529 ;
   flex: 1; /* Her elemanın eşit genişlikte olmasını sağlar */
   width: 100%; /* Her elemanın ekranın tamamını kaplamasını sağlar */
@@ -96,7 +96,7 @@ html, body {
   scroll-snap-align: center; /* Kaydırma sırasında elemanı ortalar */
 }
 
-.Title {
+#Title {
   margin: 0; /* Varsayılan üst ve alt boşlukları kaldırır */
   padding: 0; /* Varsayılan dolgu boşluğunu kaldırır */
   text-align: left; /* Yazıyı sola çeker */
@@ -106,7 +106,7 @@ html, body {
   /* Diğer stiller burada */
 }
 
-.Content{
+#Content{
   margin: 0; /* Varsayılan üst ve alt boşlukları kaldırır */
   padding: 0; /* Varsayılan dolgu boşluğunu kaldırır */
   text-align: left; /* Yazıyı sola çeker */
@@ -115,7 +115,7 @@ html, body {
   font-size: 16px; /* Yazı boyutunu ayarlar */
   /* Diğer stiller burada */
 }
-.ContentButton{
+#ContentButton{
   line-height: normal; /* Satır yüksekliğini normalleştirir */
   font-weight: 800;
   font-size: 14px; /* Yazı boyutunu ayarlar */
@@ -130,30 +130,30 @@ html, body {
   height: 40px;
 }
 
-.ScrollDots {
+#ScrollDots {
   gap: 10px; /* Noktalar arasındaki boşluk */
   z-index: 1000; /* Üstteki konumu sağlar */
 }
 
-.ScrollDots img {
+#ScrollDots img {
   width: 5px; /* Nokta genişliği */
   height: 5px; /* Nokta yüksekliği */
   opacity: 0.2; /* Noktaların başlangıç opaklığı */
   transition: opacity 0.4s; /* Opaklık geçiş efekti */
 }
 
-.ScrollDots .active {
+#ScrollDots .active {
   opacity: 1; /* Aktif noktanın opaklığı */
 }
 
-.horizontal-line {
+#horizontal-line {
   width: calc(100% - 40px); /* Çizginin genişliğini ayarlar, sağda ve solda 20px boşluk bırakır */
   height: 1px; /* Çizginin kalınlığını ayarlar */
   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
   margin: 20px auto; /* Yukarıdan ve aşağıdan 20px boşluk, sağda ve solda ortalama sağlar */
 }
 
-.Tasks{
+#Tasks{
   color: white;
   width: calc(100% - 40px); /* Çizginin genişliğini ayarlar, sağda ve solda 20px boşluk bırakır */  
   display: flex;
@@ -161,7 +161,7 @@ html, body {
   gap: 10px; /* Elementler arasında 10px boşluk bırakır */
 }
 
-.Tasks-Title{
+#Tasks-Title{
   margin: 0px; /* Varsayılan üst ve alt boşlukları kaldırır */
   padding: 0; /* Varsayılan dolgu boşluğunu kaldırır */
   text-align: left; /* Yazıyı sola çeker */
@@ -170,7 +170,7 @@ html, body {
   font-size: 19px; /* Yazı boyutunu ayarlar */
 }
 
-.Task {
+#Task {
   display: flex;
   width: 100%;
   height: 50px;
@@ -180,12 +180,12 @@ html, body {
   border-radius: 10px;
 }
 
-.Task1-Image{
+#Task1-Image{
   margin: 5px 5px;
   object-fit: cover;
 }
 
-.Task-Guide {  
+#Task-Guide {  
   font-size: 12px; /* Yazı boyutunu ayarlar */
   background-color: rgba(255, 255, 255, 0);
   border: 0;
