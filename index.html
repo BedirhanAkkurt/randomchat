@@ -12,7 +12,7 @@
 <body>
 <div className='MainPage'>
       <div className='MainPage-Logo-Container'>
-        <img src={logo} className="MainPage-Logo" alt="logo" />
+        <img src={images/logo.png} className="MainPage-Logo" alt="logo" />
       </div>
       <div className='MainPage-TokenCounter-Container'>
         <p className='MainPage-TokenCounter-Counter'>
@@ -63,7 +63,7 @@
           {[...Array(3)].map((_, index) => (
             <img
               key={index}
-              src={dotImage}
+              src={images/dotImage.png}
               alt={`Page ${index + 1}`}
               className={index === activeIndex ? 'active' : ''}
             />
@@ -75,31 +75,31 @@
           TASKS
         </p>
         <div className='Task'>
-          <img className='Task1-Image' src={task1} alt='task 1 image'/>
+          <img className='Task1-Image' src={images/task1.png} alt='task 1 image'/>
           <button className='Task-Guide'>
             Gain Free Uranium Tokens!
           </button>
         </div>
         <div className='Task'>
-          <img className='Task1-Image' src={task2} alt='task 2 image'/>
+          <img className='Task1-Image' src={images/task2.png} alt='task 2 image'/>
           <button className='Task-Guide'>
             Follow FLAKES COMMUNITY on X!
           </button>
         </div>
         <div className='Task'>
-          <img className='Task1-Image' src={task3} alt='task 2 image'/>
+          <img className='Task1-Image' src={images/task3.png} alt='task 2 image'/>
           <button className='Task-Guide'>
             Follow FLAKES community on Facebook!
           </button>
         </div>
         <div className='Task'>
-          <img className='Task1-Image' src={task4} alt='task 2 image'/>
+          <img className='Task1-Image' src={images/task4.png} alt='task 2 image'/>
           <button className='Task-Guide'>
             Follow FLAKES community on Instagram!
           </button>
         </div>
         <div className='Task'>
-          <img className='Task1-Image' src={task5} alt='task 2 image'/>
+          <img className='Task1-Image' src={images/task5.png} alt='task 2 image'/>
           <button className='Task-Guide'>
             Follow FLAKES community on YouTube!
           </button>
