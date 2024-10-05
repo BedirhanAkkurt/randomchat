@@ -10,97 +10,97 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div className='MainPage'>
-      <div className='MainPage-Logo-Container'>
-        <img src={images/logo.png} className="MainPage-Logo" alt="logo" />
+<div class='MainPage'>
+      <div class='MainPage-Logo-Container'>
+        <img src={images/logo.png} class="MainPage-Logo" alt="logo" />
       </div>
-      <div className='MainPage-TokenCounter-Container'>
-        <p className='MainPage-TokenCounter-Counter'>
+      <div class='MainPage-TokenCounter-Container'>
+        <p class='MainPage-TokenCounter-Counter'>
           3,251
         </p>
-        <p className='MainPage-TokenCounter-TokenName'>
+        <p class='MainPage-TokenCounter-TokenName'>
           FLAKES
         </p>
       </div>
-      <div className='ScrollableContainer' ref={scrollContainerRef}>
-        <div className='ScrollableContent'>
-          <div className='ContentItem'>
-            <p className='Title'>
+      <div class='ScrollableContainer' ref={scrollContainerRef}>
+        <div class='ScrollableContent'>
+          <div class='ContentItem'>
+            <p class='Title'>
               FLAKES COMMUNITY
             </p>
-            <p className='Content'>
+            <p class='Content'>
               Home for Telegram OGs!
             </p>
-            <button className='ContentButton'>
+            <button class='ContentButton'>
               Join
             </button>
           </div>
-          <div className='ContentItem'>
-            <p className='Title'>
+          <div class='ContentItem'>
+            <p class='Title'>
               FOLLOW ON INSTAGRAM
             </p>
-            <p className='Content'>
+            <p class='Content'>
               Much more content!
             </p>
-            <button className='ContentButton'>
+            <button class='ContentButton'>
               Go
             </button>
           </div>
-          <div className='ContentItem'>
-            <p className='Title'>
+          <div class='ContentItem'>
+            <p class='Title'>
               FOLLOW ON X
             </p>
-            <p className='Content'>
+            <p class='Content'>
               We strong together!
             </p>
-            <button className='ContentButton'>
+            <button class='ContentButton'>
               Go
             </button>
           </div>
         </div>
       </div>
-      <div className='ScrollDots'>
+      <div class='ScrollDots'>
           {[...Array(3)].map((_, index) => (
             <img
               key={index}
               src={images/dotImage.png}
               alt={`Page ${index + 1}`}
-              className={index === activeIndex ? 'active' : ''}
+              class={index === activeIndex ? 'active' : ''}
             />
           ))}
       </div>
-      <div className="horizontal-line"></div>
-      <div className='Tasks'>
-        <p className='Tasks-Title'>
+      <div class="horizontal-line"></div>
+      <div class='Tasks'>
+        <p class='Tasks-Title'>
           TASKS
         </p>
-        <div className='Task'>
-          <img className='Task1-Image' src={images/task1.png} alt='task 1 image'/>
-          <button className='Task-Guide'>
+        <div class='Task'>
+          <img class='Task1-Image' src={images/task1.png} alt='task 1 image'/>
+          <button class='Task-Guide'>
             Gain Free Uranium Tokens!
           </button>
         </div>
-        <div className='Task'>
-          <img className='Task1-Image' src={images/task2.png} alt='task 2 image'/>
-          <button className='Task-Guide'>
+        <div class='Task'>
+          <img class='Task1-Image' src={images/task2.png} alt='task 2 image'/>
+          <button class='Task-Guide'>
             Follow FLAKES COMMUNITY on X!
           </button>
         </div>
-        <div className='Task'>
-          <img className='Task1-Image' src={images/task3.png} alt='task 2 image'/>
-          <button className='Task-Guide'>
+        <div class='Task'>
+          <img class='Task1-Image' src={images/task3.png} alt='task 2 image'/>
+          <button class='Task-Guide'>
             Follow FLAKES community on Facebook!
           </button>
         </div>
-        <div className='Task'>
-          <img className='Task1-Image' src={images/task4.png} alt='task 2 image'/>
-          <button className='Task-Guide'>
+        <div class='Task'>
+          <img class='Task1-Image' src={images/task4.png} alt='task 2 image'/>
+          <button class='Task-Guide'>
             Follow FLAKES community on Instagram!
           </button>
         </div>
-        <div className='Task'>
-          <img className='Task1-Image' src={images/task5.png} alt='task 2 image'/>
-          <button className='Task-Guide'>
+        <div class='Task'>
+          <img class='Task1-Image' src={images/task5.png} alt='task 2 image'/>
+          <button class='Task-Guide'>
             Follow FLAKES community on YouTube!
           </button>
         </div>
