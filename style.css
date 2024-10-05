@@ -8,12 +8,12 @@ html, body {
 }
 
 /* flex display */
-#MainPage, .MainPage-TokenCounter-Container, .ScrollableContent, .ContentItem, .ScrollDots {
+#MainPage, #MainPage-TokenCounter-Container, #ScrollableContent, #ContentItem, #ScrollDots {
   display: flex;
 }
 
 /* font style */
-#MainPage-TokenCounter-Container, .ContentItem, .ContentButton, .Tasks-Title {
+#MainPage-TokenCounter-Container, #ContentItem, #ContentButton, #Tasks-Title {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
@@ -56,7 +56,7 @@ html, body {
   letter-spacing: 1.25px;
 }
 
-#MainPage-TokenCounter-Counter, .MainPage-TokenCounter-TokenName {
+#MainPage-TokenCounter-Counter, #MainPage-TokenCounter-TokenName {
   padding: 5px;
 }
 
