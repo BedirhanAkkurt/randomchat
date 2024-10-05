@@ -20,7 +20,7 @@ html, body {
 .MainPage {
   flex-direction: column;
   align-items: center; /* İçeriği yatay olarak ortalar */
-  background-color: .202125;
+  background-color: #202125;
   min-height: 100vh;
   margin: 0;
   padding-bottom: 50px;
@@ -67,7 +67,7 @@ html, body {
 }
 
 .ScrollableContainer {
-  color: .fff; /* Yazı rengi */
+  color: #fff; /* Yazı rengi */
   width: 100%;
   height: 160px;
   overflow-x: auto; /* Yatay kaydırmayı etkinleştirir */
@@ -83,7 +83,7 @@ html, body {
 }
 
 .ContentItem {
-  background-color: .242529 ;
+  background-color: #242529 ;
   flex: 1; /* Her elemanın eşit genişlikte olmasını sağlar */
   width: 100%; /* Her elemanın ekranın tamamını kaplamasını sağlar */
   height: 150px; /* Eleman yüksekliği container yüksekliğiyle eşleşir */
@@ -175,7 +175,7 @@ html, body {
   width: 100%;
   height: 50px;
   padding: 0px;
-  background-color: .242529;
+  background-color: #242529;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
 }
