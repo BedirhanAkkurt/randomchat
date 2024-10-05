@@ -193,9 +193,9 @@
         document.getElementById('sendTransaction').addEventListener('click', sendTransaction);
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
-                window.Telegram.WebApp?.ready();
-                window.Telegram.WebApp?.expand();
-            }, 250); // 100 ms bekleyin
+                window.Telegram.WebApp?.ready(),
+                window.Telegram.WebApp?.expand()
+            }, 1000); // 100 ms bekleyin
 
             // Tema parametrelerini al ve sayfanın stilini uygula
             window.Telegram.WebApp?.setBackgroundColor('#242529');
