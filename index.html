@@ -193,14 +193,14 @@
         document.getElementById('sendTransaction').addEventListener('click', sendTransaction);
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
-                window.Telegram.WebApp.ready();
-                window.Telegram.WebApp.expand();
+                window.Telegram.WebApp?.ready();
+                window.Telegram.WebApp?.expand();
             }, 250); // 100 ms bekleyin
 
             // Tema parametrelerini al ve sayfanın stilini uygula
-            window.Telegram.WebApp.setBackgroundColor('#242529');
-            window.Telegram.WebApp.setBottomBarColor('#242529');
-            window.Telegram.WebApp.setHeaderColor('#242529');
+            window.Telegram.WebApp?.setBackgroundColor('#242529');
+            window.Telegram.WebApp?.setBottomBarColor('#242529');
+            window.Telegram.WebApp?.setHeaderColor('#242529');
 
             const user_id = window.Telegram.WebApp?.initDataUnsafe?.user?.id;
             if (user_id) {
