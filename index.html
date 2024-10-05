@@ -146,6 +146,10 @@
         // Event listener yalnızca işlem gönderimi için
         document.getElementById('sendTransaction').addEventListener('click', sendTransaction);
         document.addEventListener('DOMContentLoaded', () => {
+            window.Telegram.WebApp.ready();
+            window.Telegram.WebApp.expand();
+
+            window.Telegram.WebApp.setHeaderColor('#242529');
             const user_id = window.Telegram.WebApp?.initDataUnsafe?.user?.id;
             if (user_id) {
                 console.log("User ID:", user_id);
