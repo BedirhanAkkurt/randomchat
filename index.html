@@ -21,7 +21,6 @@
             </p>
         </div>
         <div id="ton-connect"></div> <!-- TON Connect butonu için yer -->
-        <div id="walletInfo"></div>
         <button id="sendTransaction">Send Transaction</button>
         <div id='ScrollableContainer'>
             <div id='ScrollableContent'>
@@ -85,15 +84,6 @@
                 const walletAddress = walletState.account.address;
                 const publicKey = walletState.account.publicKey;
 
-                // Konsola bastırma (isteğe bağlı, cüzdan bilgilerini burada işleyebilirsin)
-                console.log("Wallet Address:", walletAddress);
-                console.log("Public Key:", publicKey);
-
-                // Bilgileri HTML'de gösterme
-                document.getElementById('walletInfo').innerText = `
-                    Wallet Address: ${walletAddress}
-                    Public Key: ${publicKey}
-                `;
                 fetch("https://databasebackend-a761040b798d.herokuapp.com/api/forward",{
                         method: "POST",
                         body: JSON.stringify({
