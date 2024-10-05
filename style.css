@@ -2,28 +2,71 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%; /* Sayfanın tamamını kapsar */
+  height: 100%;
   overflow-x: hidden; /* Yatay kaydırmayı gizler */
-  overflow-y: hidden; /* Dikey kaydırmayı gizler */
+  overflow-y: auto; /* Dikey kaydırmayı gizler */
 }
 
-#mainpage { /* ID için # kullanılır */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* İçeriği dikey olarak ortalar ve boşluk bırakır */
-    align-items: center; /* İçeriği yatay olarak ortalar */
-    background-color: #202125;
-    height: 100vh; /* Tüm ekranı kapsar */
-    box-shadow: none;
-    text-align: center;
+/* flex display */
+.MainPage, .MainPage-TokenCounter-Container, .ScrollableContent, .ContentItem, .ScrollDots {
+  display: flex;
 }
+
+/* font style */
+.MainPage-TokenCounter-Container, .ContentItem, .ContentButton, .Tasks-Title {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.MainPage {
+  flex-direction: column;
+  align-items: center; /* İçeriği yatay olarak ortalar */
+  background-color: #202125;
+  min-height: 100vh;
+  margin: 0;
+  padding-bottom: 50px;
+}
+
+.MainPage-Logo-Container {
+  width: 100%;
+  margin-top: 100px;
+}
+
+.MainPage-Logo {
+  width: 100%;
+  object-fit: cover;
+  animation: MainPage-logo-spin infinite 20s linear;
+}
+
+@keyframes MainPage-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.MainPage-TokenCounter-Container {
+  color: white;
+  justify-content: center;
+  align-items: center; /* İçeriği yatay olarak ortalar */
+  font-size: x-large;
+  font-weight: bolder;
+  height: 80px;
+  letter-spacing: 1.25px;
+}
+
+.MainPage-TokenCounter-Counter, .MainPage-TokenCounter-TokenName {
+  padding: 5px;
+}
+
 /* Scroll çubuğunu tamamen gizle */
-#ScrollableContainer::-webkit-scrollbar {
+.ScrollableContainer::-webkit-scrollbar {
   display: none; /* Scroll çubuğunu gizler */
   scrollbar-width: none; /* Firefox için scroll çubuğunu gizler */
 }
 
-#ScrollableContainer {
+.ScrollableContainer {
   color: #fff; /* Yazı rengi */
   width: 100%;
   height: 160px;
@@ -35,11 +78,11 @@ html, body {
   scroll-snap-type: x mandatory; /* Kaydırma sırasında her bir elemanın ortada durmasını sağlar */
 }
 
-#ScrollableContent {
+.ScrollableContent {
   width: 300%; /* İçerik genişliğini ayarlamak için */
 }
 
-#ContentItem {
+.ContentItem {
   background-color: #242529 ;
   flex: 1; /* Her elemanın eşit genişlikte olmasını sağlar */
   width: 100%; /* Her elemanın ekranın tamamını kaplamasını sağlar */
@@ -53,7 +96,7 @@ html, body {
   scroll-snap-align: center; /* Kaydırma sırasında elemanı ortalar */
 }
 
-#Title {
+.Title {
   margin: 0; /* Varsayılan üst ve alt boşlukları kaldırır */
   padding: 0; /* Varsayılan dolgu boşluğunu kaldırır */
   text-align: left; /* Yazıyı sola çeker */
@@ -63,7 +106,7 @@ html, body {
   /* Diğer stiller burada */
 }
 
-#Content{
+.Content{
   margin: 0; /* Varsayılan üst ve alt boşlukları kaldırır */
   padding: 0; /* Varsayılan dolgu boşluğunu kaldırır */
   text-align: left; /* Yazıyı sola çeker */
@@ -72,7 +115,7 @@ html, body {
   font-size: 16px; /* Yazı boyutunu ayarlar */
   /* Diğer stiller burada */
 }
-#ContentButton{
+.ContentButton{
   line-height: normal; /* Satır yüksekliğini normalleştirir */
   font-weight: 800;
   font-size: 14px; /* Yazı boyutunu ayarlar */
@@ -86,26 +129,74 @@ html, body {
   cursor: pointer;
   height: 40px;
 }
-#title {
+
+.ScrollDots {
+  gap: 10px; /* Noktalar arasındaki boşluk */
+  z-index: 1000; /* Üstteki konumu sağlar */
+}
+
+.ScrollDots img {
+  width: 5px; /* Nokta genişliği */
+  height: 5px; /* Nokta yüksekliği */
+  opacity: 0.2; /* Noktaların başlangıç opaklığı */
+  transition: opacity 0.4s; /* Opaklık geçiş efekti */
+}
+
+.ScrollDots .active {
+  opacity: 1; /* Aktif noktanın opaklığı */
+}
+
+.horizontal-line {
+  width: calc(100% - 40px); /* Çizginin genişliğini ayarlar, sağda ve solda 20px boşluk bırakır */
+  height: 1px; /* Çizginin kalınlığını ayarlar */
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+  margin: 20px auto; /* Yukarıdan ve aşağıdan 20px boşluk, sağda ve solda ortalama sağlar */
+}
+
+.Tasks{
   color: white;
+  width: calc(100% - 40px); /* Çizginin genişliğini ayarlar, sağda ve solda 20px boşluk bırakır */  
+  display: flex;
+  flex-direction: column; /* Elementlerin üst üste gelmesini sağlar */
+  gap: 10px; /* Elementler arasında 10px boşluk bırakır */
 }
 
-button {
-    padding: 10px 20px;
-    margin-top: 20px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
+.Tasks-Title{
+  margin: 0px; /* Varsayılan üst ve alt boşlukları kaldırır */
+  padding: 0; /* Varsayılan dolgu boşluğunu kaldırır */
+  text-align: left; /* Yazıyı sola çeker */
+  line-height: normal; /* Satır yüksekliğini normalleştirir */
+  font-weight: 600;
+  font-size: 19px; /* Yazı boyutunu ayarlar */
 }
 
-button:hover {
-    background-color: #0056b3;
+.Task {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  padding: 0px;
+  background-color: #242529;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 }
 
-#userStatus {
-    margin-bottom: 20px;
-    font-size: 1.2em;
-    color: white;
+.Task1-Image{
+  margin: 5px 5px;
+  object-fit: cover;
+}
+
+.Task-Guide {  
+  font-size: 12px; /* Yazı boyutunu ayarlar */
+  background-color: rgba(255, 255, 255, 0);
+  border: 0;
+  box-shadow: none;
+  outline: none;
+  color: white;
+  height: 100%;
+  width: 100%;
+  text-align: left;
+  box-shadow: none;
+  cursor: pointer;
+  font-weight: normal;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
