@@ -76,10 +76,15 @@
         function updateScrollDots() {
             const scrollLeft = scrollContainer.scrollLeft;
             const containerWidth = scrollContainer.clientWidth;
-            const newIndex = Math.round(scrollLeft / containerWidth);
+            const totalWidth = scrollContainer.scrollWidth;
+            const activeIndex = Math.round(scrollLeft / containerWidth);
 
             dots.forEach((dot, index) => {
-                dot.style.opacity = index === newIndex ? '1' : '0.5'; // Aktif sayfa için opaklığı artır
+                if (index === activeIndex) {
+                    dot.style.opacity = 1;
+                } else {
+                    dot.style.opacity = 0.5;
+                }
             });
         }
 
