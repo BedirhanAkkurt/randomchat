@@ -68,6 +68,22 @@
     </div>
 
     <script>
+        const scrollContainer = document.getElementById('ScrollableContainer');
+        const dots = document.querySelectorAll('.dot');
+        const contentItems = document.querySelectorAll('.ContentItem');
+        
+        function updateScrollDots() {
+            const scrollLeft = scrollContainer.scrollLeft;
+            const containerWidth = scrollContainer.clientWidth;
+            const newIndex = Math.round(scrollLeft / containerWidth);
+
+            dots.forEach((dot, index) => {
+                dot.style.opacity = index === newIndex ? '1' : '0.5'; // Aktif sayfa için opaklığı artır
+            });
+        }
+
+        scrollContainer.addEventListener('scroll', updateScrollDots);
+        
         // TonConnectUI başlat
         const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
             manifestUrl: 'https://raw.githubusercontent.com/BedirhanAkkurt/randomchat/refs/heads/main/tonconnect-manifest.json',
