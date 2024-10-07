@@ -142,7 +142,7 @@ body {
   transition: opacity 0.4s; /* Opaklık geçiş efekti */
 }
 
-#ScrollDots #active {
+#ScrollDots .active {
   opacity: 1; /* Aktif noktanın opaklığı */
 }
 
