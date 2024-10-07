@@ -135,15 +135,15 @@ body {
   z-index: 1000; /* Üstteki konumu sağlar */
 }
 
-#ScrollDots img {
-  width: 5px; /* Nokta genişliği */
-  height: 5px; /* Nokta yüksekliği */
-  opacity: 0.2; /* Noktaların başlangıç opaklığı */
-  transition: opacity 0.4s; /* Opaklık geçiş efekti */
+#ScrollDots .dot {
+  width: 5px;
+  height: 5px;
+  opacity: 0.2;
+  transition: opacity 0.4s;
 }
 
-#ScrollDots .active {
-  opacity: 1; /* Aktif noktanın opaklığı */
+#ScrollDots .dot.active {
+  opacity: 1;
 }
 
 #horizontal-line {
