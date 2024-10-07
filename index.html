@@ -60,12 +60,12 @@
             </div>
         </div>
         <div id='ScrollDots'>
-            <img src="https://raw.githubusercontent.com/BedirhanAkkurt/randomchat/refs/heads/main/images/dot.png" alt="Page 1" class="dot" />
+            <img src="https://raw.githubusercontent.com/BedirhanAkkurt/randomchat/refs/heads/main/images/dot.png" alt="Page 1" class="dot active" />
             <img src="https://raw.githubusercontent.com/BedirhanAkkurt/randomchat/refs/heads/main/images/dot.png" alt="Page 2" class="dot" />
             <img src="https://raw.githubusercontent.com/BedirhanAkkurt/randomchat/refs/heads/main/images/dot.png" alt="Page 3" class="dot" />
         </div>
         <div id="horizontal-line"></div>
-        <div><p>version 0.001</p></div>
+        <div><p>version 0.002</p></div>
     </div>
 
     <script>
@@ -80,10 +80,9 @@
             const activeIndex = Math.round(scrollLeft / containerWidth);
 
             dots.forEach((dot, index) => {
+                dot.classList.remove('active'); // Önce tüm noktaların aktifliğini kaldır
                 if (index === activeIndex) {
-                    dot.style.opacity = 1;
-                } else {
-                    dot.style.opacity = 0.5;
+                    dot.classList.add('active'); // Aktif olanı yeniden ayarla
                 }
             });
         }
