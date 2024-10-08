@@ -20,7 +20,7 @@ body {
 #MainPage {
   flex-direction: column;
   align-items: center; /* İçeriği yatay olarak ortalar */
-  background-color: #202125;
+  background-color: #c5bdb9;
   min-height: 100vh;
   margin: 0;
   padding-bottom: 50px;
@@ -47,7 +47,7 @@ body {
 }
 
 #MainPage-TokenCounter-Container {
-  color: white;
+  color: #4b3d3d;
   justify-content: center;
   align-items: center; /* İçeriği yatay olarak ortalar */
   font-size: x-large;
@@ -67,7 +67,7 @@ body {
 }
 
 #ScrollableContainer {
-  color: #fff; /* Yazı rengi */
+  color: #4b3d3d; /* Yazı rengi */
   width: 100%;
   height: 160px;
   overflow-x: auto; /* Yatay kaydırmayı etkinleştirir */
@@ -83,7 +83,7 @@ body {
 }
 
 #ContentItem {
-  background-color: #242529 ;
+  background: linear-gradient(to top, #ddd5ce, #f0ede2);
   flex: 1; /* Her elemanın eşit genişlikte olmasını sağlar */
   width: 100%; /* Her elemanın ekranın tamamını kaplamasını sağlar */
   height: 150px; /* Eleman yüksekliği container yüksekliğiyle eşleşir */
@@ -151,52 +151,4 @@ body {
   height: 1px; /* Çizginin kalınlığını ayarlar */
   background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0#1) 50%, rgba(255, 255, 255, 0) 100%);
   margin: 20px auto; /* Yukarıdan ve aşağıdan 20px boşluk, sağda ve solda ortalama sağlar */
-}
-
-#Tasks{
-  color: white;
-  width: calc(100% - 40px); /* Çizginin genişliğini ayarlar, sağda ve solda 20px boşluk bırakır */  
-  display: flex;
-  flex-direction: column; /* Elementlerin üst üste gelmesini sağlar */
-  gap: 10px; /* Elementler arasında 10px boşluk bırakır */
-}
-
-#Tasks-Title{
-  margin: 0px; /* Varsayılan üst ve alt boşlukları kaldırır */
-  padding: 0; /* Varsayılan dolgu boşluğunu kaldırır */
-  text-align: left; /* Yazıyı sola çeker */
-  line-height: normal; /* Satır yüksekliğini normalleştirir */
-  font-weight: 600;
-  font-size: 19px; /* Yazı boyutunu ayarlar */
-}
-
-#Task {
-  display: flex;
-  width: 100%;
-  height: 50px;
-  padding: 0px;
-  background-color: #242529;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-}
-
-#Task1-Image{
-  margin: 5px 5px;
-  object-fit: cover;
-}
-
-#Task-Guide {  
-  font-size: 12px; /* Yazı boyutunu ayarlar */
-  background-color: rgba(255, 255, 255, 0);
-  border: 0;
-  box-shadow: none;
-  outline: none;
-  color: white;
-  height: 100%;
-  width: 100%;
-  text-align: left;
-  box-shadow: none;
-  cursor: pointer;
-  font-weight: normal;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
