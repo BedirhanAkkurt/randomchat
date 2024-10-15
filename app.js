@@ -96,19 +96,8 @@ const render = () => {
         
         ctx.font = "bold 30px courier";
         ctx.fillText(`Best score : ${bestScore}`, 85, 245);
-        ctx.fillText('Click to play', 90, 535);
-    }
-    
-    ctx.font = "bold 20px courier";
-    ctx.fillStyle = "black";
-    ctx.fillText(`Best Score: ${bestScore}`, 10, 30);
-    ctx.fillText(`Current Score: ${currentScore}`, 200, 30);
+        ctx.fillText('Click to play', 90, 535);        
 
-    document.getElementById('bestScore').innerHTML = `Best : ${bestScore}`;
-    document.getElementById('currentScore').innerHTML = `Current : ${currentScore}`;
-
-    // Eğer oyun bitmişse
-    if (!gamePlaying) {
         const userId = window.Telegram.WebApp.initDataUnsafe.user.id; // Telegram'dan user_id'yi al
         fetch('/api/scores', {
             method: 'POST',
@@ -120,8 +109,16 @@ const render = () => {
         .then(response => response.json())
         .then(data => console.log(data.message))
         .catch(error => console.error('Error:', error));
-        
     }
+    
+    ctx.font = "bold 20px courier";
+    ctx.fillStyle = "black";
+    ctx.fillText(`Best Score: ${bestScore}`, 10, 30);
+    ctx.fillText(`Current Score: ${currentScore}`, 200, 30);
+
+    document.getElementById('bestScore').innerHTML = `Best : ${bestScore}`;
+    document.getElementById('currentScore').innerHTML = `Current : ${currentScore}`;
+
     window.requestAnimationFrame(render);
 }
 
