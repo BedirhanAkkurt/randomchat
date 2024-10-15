@@ -123,7 +123,10 @@ const render = () => {
 
 // Launch setup
 setup();
-img.onload = render;
+// DOMContentLoaded olayını dinle
+document.addEventListener('DOMContentLoaded', () => {
+    img.onload = render; // Resim yüklendiğinde render fonksiyonunu başlat
+});
 
 // Start game
 document.addEventListener('click', () => {
