@@ -61,6 +61,17 @@ const render = () => {
         
             // If hit the pipe, end
             if ([pipe[0] <= cTenth + size[0], pipe[0] + pipeWidth >= cTenth, pipe[1] > flyHeight || pipe[1] + pipeGap < flyHeight + size[1]].every(elem => elem)) {
+                const userId = window.Telegram.WebApp.initDataUnsafe.user.id; // Telegram'dan user_id'yi al
+                fetch('/api/scores', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ user_id: userId, score: currentScore }),
+                })
+                .then(response => response.json())
+                .then(data => console.log(data.message))
+                .catch(error => console.error('Error:', error));
                 gamePlaying = false;
                 setup();
             }
@@ -97,18 +108,6 @@ const render = () => {
         ctx.font = "bold 30px courier";
         ctx.fillText(`Best score : ${bestScore}`, 85, 245);
         ctx.fillText('Click to play', 90, 535);        
-
-        const userId = window.Telegram.WebApp.initDataUnsafe.user.id; // Telegram'dan user_id'yi al
-        fetch('/api/scores', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ user_id: userId, score: currentScore }),
-        })
-        .then(response => response.json())
-        .then(data => console.log(data.message))
-        .catch(error => console.error('Error:', error));
     }
     
     ctx.font = "bold 20px courier";
