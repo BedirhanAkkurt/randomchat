@@ -62,7 +62,7 @@ const render = () => {
             // If hit the pipe, end
             if ([pipe[0] <= cTenth + size[0], pipe[0] + pipeWidth >= cTenth, pipe[1] > flyHeight || pipe[1] + pipeGap < flyHeight + size[1]].every(elem => elem)) {
                 const userId = window.Telegram.WebApp.initDataUnsafe.user.id; // Telegram'dan user_id'yi al
-                fetch('http://192.168.91.48:5000/api/scores', {
+                fetch('http://snowtalkchat.com/api/scores', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
