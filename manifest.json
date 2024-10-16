@@ -2,10 +2,10 @@
     "name": "Telegram Web App with TON Connect",
     "description": "Simple Telegram Web App Example with TON Connect",
     "icons": [],
-    "start_url": "https://snowtalkchat.com",
+    "start_url": "https://bedirhanakkurt.github.io/randomchat",
     "theme_color": "#0088cc",
     "background_color": "#ffffff",
     "display": "standalone",
     "appName": "Random Chat",
-    "url": "https://snowtalkchat.com"
+    "url": "https://bedirhanakkurt.github.io/randomchat"
 }
