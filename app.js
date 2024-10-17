@@ -120,9 +120,9 @@ const render = () => {
         }
 
         // Draw the bird only once
-        ctx.drawImage(img, 588, Math.floor((index % 9) / 3) * size[1], ...size, cTenth, flyHeight, ...size);
+        ctx.drawImage(img, 590, Math.floor((index % 9) / 3) * size[1], ...size, cTenth, flyHeight, ...size);
     } else {
-        ctx.drawImage(img, 588, Math.floor((index % 9) / 3) * size[1], ...size, ((canvas.width / 2) - size[0] / 2), flyHeight, ...size);
+        ctx.drawImage(img, 590, Math.floor((index % 9) / 3) * size[1], ...size, ((canvas.width / 2) - size[0] / 2), flyHeight, ...size);
         flyHeight = (canvas.height / 2) - (size[1] / 2);
         
         ctx.font = "bold 30px courier";
@@ -137,7 +137,24 @@ const render = () => {
 
 // Launch setup
 setup();
-img.onload = render;
+
+// Resimlerin yüklenmesini bekle
+let imagesLoaded = 0;
+
+// Yüklenme olaylarını dinle
+img.onload = () => {
+    imagesLoaded++;
+    if (imagesLoaded === 2) {  // İki resim de yüklendikten sonra başla
+        render();
+    }
+};
+
+numbers.onload = () => {
+    imagesLoaded++;
+    if (imagesLoaded === 2) {  // İki resim de yüklendikten sonra başla
+        render();
+    }
+};
 
 // Start game
 document.addEventListener('click', () => {
