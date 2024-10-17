@@ -2,8 +2,6 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const img = new Image();
 img.src = "flappy-bird-set.png";
-const numbers = new Image();
-numbers.src = "numbers.png";
 
 // General settings
 let gamePlaying = false;
@@ -39,8 +37,8 @@ function drawScoreCentered(score, y) {
     // Her rakamı tek tek çiz
     for (let i = 0; i < scoreStr.length; i++) {
         const digit = parseInt(scoreStr[i]);  // Her rakamı al
-        const spriteX = digit * digitWidth;   // Sprite sheet'teki x konumunu hesapla
-        ctx.drawImage(numbers, spriteX, 0, digitWidth, digitHeight, startX + (i * digitWidth), y, digitWidth, digitHeight);
+        const spriteX = 648 + digit * digitWidth;   // Sprite sheet'teki x konumunu hesapla
+        ctx.drawImage(img, spriteX, 0, digitWidth, digitHeight, startX + (i * digitWidth), y, digitWidth, digitHeight);
     }
 }
 
@@ -137,24 +135,7 @@ const render = () => {
 
 // Launch setup
 setup();
-
-// Resimlerin yüklenmesini bekle
-let imagesLoaded = 0;
-
-// Yüklenme olaylarını dinle
-img.onload = () => {
-    imagesLoaded++;
-    if (imagesLoaded === 2) {  // İki resim de yüklendikten sonra başla
-        render();
-    }
-};
-
-numbers.onload = () => {
-    imagesLoaded++;
-    if (imagesLoaded === 2) {  // İki resim de yüklendikten sonra başla
-        render();
-    }
-};
+img.onload = render;
 
 // Start game
 document.addEventListener('click', () => {
