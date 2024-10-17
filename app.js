@@ -23,10 +23,6 @@ let index = 0,
     currentScore, 
     pipes;
 
-let lastRenderTime = 0;
-const fps = 60;  // 60 FPS hedefle
-const timePerFrame = 1000 / fps;
-
 // Pipe settings
 const pipeWidth = 78;
 const pipeGap = 270;
@@ -57,16 +53,8 @@ const setup = () => {
     pipes = Array(3).fill().map((a, i) => [canvas.width + (i * (pipeGap + pipeWidth)), pipeLoc()]);
 }
 
-const render = (currentTime) => {
-    const timeSinceLastRender = currentTime - lastRenderTime;
-
-    if (timeSinceLastRender < timePerFrame) {
-        window.requestAnimationFrame(render);  // Çizimi geciktir
-        return;
-    }
-
-    lastRenderTime = currentTime;
-
+const render = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Önceki çerçeveyi temizle
     index++;
 
     // Background first part 
@@ -146,10 +134,9 @@ const render = (currentTime) => {
     window.requestAnimationFrame(render);
 }
 
-img.onload = () => {
-    setup();
-    window.requestAnimationFrame(render);
-};
+// Launch setup
+setup();
+img.onload = render;
 
 // Start game
 document.addEventListener('click', () => {
@@ -161,9 +148,10 @@ document.addEventListener('touchstart', (e) => {
     flight = jump;
 });
 
-// Toggle auto mode with a key press (for example, the "A" key)
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'a') {
-        autoMode = !autoMode; // Toggle auto mode
+    // Ses açma tuşunu kontrol et (bu tuş genellikle "Volume Up" olarak adlandırılır)
+    if (e.key === 'VolumeUp') {
+        autoMode = !autoMode; // Auto mode'u değiştir
+        console.log('Auto mode:', autoMode);
     }
 });
