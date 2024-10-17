@@ -1,17 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 body {
-  margin: 0;
-  text-align: center;
-  font-family: 'Press Start 2P', cursive;
-  user-select: none;
+    margin: 0;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    user-select: none;
 }
 header {
-  margin: 0;
-  width: 431px;
+    margin: 0;
+    width: 431px;
 }
 #canvas{
-    width: 100vw;
+    width: 100%;
     aspect-ratio: 0.5611979166666667;
 }
 h1 {
@@ -24,7 +24,7 @@ h1 {
     margin: 0;
 }
 .score-container {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 6px;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 6px;
 }
