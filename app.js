@@ -7,7 +7,7 @@ img.src = "flappy-bird-set.png";
 let gamePlaying = false;
 const gravity = 0.5;
 const speed = 6.2;
-const size = [51, 36];
+const size = [50, 48];
 const jump = -11.5;
 const cTenth = (canvas.width / 10);
 let autoMode = false; // Auto mode boolean
@@ -100,9 +100,9 @@ const render = () => {
         }
 
         // Draw the bird only once
-        ctx.drawImage(img, 432, Math.floor((index % 9) / 3) * size[1], ...size, cTenth, flyHeight, ...size);
+        ctx.drawImage(img, 588, Math.floor((index % 9) / 3) * size[1], ...size, cTenth, flyHeight, ...size);
     } else {
-        ctx.drawImage(img, 432, Math.floor((index % 9) / 3) * size[1], ...size, ((canvas.width / 2) - size[0] / 2), flyHeight, ...size);
+        ctx.drawImage(img, 588, Math.floor((index % 9) / 3) * size[1], ...size, ((canvas.width / 2) - size[0] / 2), flyHeight, ...size);
         flyHeight = (canvas.height / 2) - (size[1] / 2);
         
         ctx.font = "bold 30px courier";
