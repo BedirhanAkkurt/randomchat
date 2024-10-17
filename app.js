@@ -23,6 +23,10 @@ let index = 0,
     currentScore, 
     pipes;
 
+let lastRenderTime = 0;
+const fps = 60;  // 60 FPS hedefle
+const timePerFrame = 1000 / fps;
+
 // Pipe settings
 const pipeWidth = 78;
 const pipeGap = 270;
@@ -53,7 +57,16 @@ const setup = () => {
     pipes = Array(3).fill().map((a, i) => [canvas.width + (i * (pipeGap + pipeWidth)), pipeLoc()]);
 }
 
-const render = () => {
+const render = (currentTime) => {
+    const timeSinceLastRender = currentTime - lastRenderTime;
+
+    if (timeSinceLastRender < timePerFrame) {
+        window.requestAnimationFrame(render);  // Çizimi geciktir
+        return;
+    }
+
+    lastRenderTime = currentTime;
+
     index++;
 
     // Background first part 
@@ -133,9 +146,10 @@ const render = () => {
     window.requestAnimationFrame(render);
 }
 
-// Launch setup
-setup();
-img.onload = render;
+img.onload = () => {
+    setup();
+    window.requestAnimationFrame(render);
+};
 
 // Start game
 document.addEventListener('click', () => {
