@@ -129,16 +129,6 @@ const render = () => {
         ctx.fillText(`Best score : ${bestScore}`, 85, 245);
         ctx.fillText('Click to play', 90, 535);        
     }
-    const canvasWidth = canvas.width; // Canvas genişliği
-    ctx.font = "bold 20px courier";
-    ctx.fillStyle = "black";
-    // Best Score'u sol tarafa yerleştir (10 piksel soldan boşluk)
-    ctx.fillText(`Best: ${bestScore}`, 20, 60);
-
-    // Current Score'u sağ tarafa yerleştir (canvas genişliğinden metnin genişliğini çıkararak)
-    const currentScoreText = `Current: ${currentScore}`;
-    const textWidth = ctx.measureText(currentScoreText).width; // Metnin genişliğini al
-    ctx.fillText(currentScoreText, canvasWidth - textWidth - 20, 60); // Sağdan 10 piksel boşluk bırak
     
     drawScoreCentered(currentScore, 60);  // 60, Y pozisyonu (örneğin 60 piksel aşağıda göster)
 
