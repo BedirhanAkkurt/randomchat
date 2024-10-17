@@ -2,12 +2,18 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const img = new Image();
 img.src = "flappy-bird-set.png";
+const numbers = new Image();
+numbers.src = "numbers.png";
 
 // General settings
 let gamePlaying = false;
 const gravity = 0.5;
 const speed = 6.2;
 const size = [50, 48];
+// Her rakamın genişliği ve yüksekliği (örnek: 50x44)
+const digitWidth = 29;
+const digitHeight = 40;
+
 const jump = -11.5;
 const cTenth = (canvas.width / 10);
 let autoMode = false; // Auto mode boolean
@@ -23,6 +29,20 @@ let index = 0,
 const pipeWidth = 78;
 const pipeGap = 270;
 const pipeLoc = () => (Math.random() * ((canvas.height - (pipeGap + pipeWidth)) - pipeWidth)) + pipeWidth;
+
+// Puanı ekranda ortalamak için bir fonksiyon
+function drawScoreCentered(score, y) {
+    const scoreStr = score.toString();  // Puanı string'e çevir
+    const totalWidth = scoreStr.length * digitWidth;  // Puanın toplam genişliği (her rakam genişliği * rakam sayısı)
+    const startX = (canvas.width - totalWidth) / 2;  // Ekranın ortasında başlamak için X pozisyonu
+
+    // Her rakamı tek tek çiz
+    for (let i = 0; i < scoreStr.length; i++) {
+        const digit = parseInt(scoreStr[i]);  // Her rakamı al
+        const spriteX = digit * digitWidth;   // Sprite sheet'teki x konumunu hesapla
+        ctx.drawImage(numbers, spriteX, 0, digitWidth, digitHeight, startX + (i * digitWidth), y, digitWidth, digitHeight);
+    }
+}
 
 const setup = () => {
     currentScore = 0;
@@ -109,24 +129,25 @@ const render = () => {
         ctx.fillText(`Best score : ${bestScore}`, 85, 245);
         ctx.fillText('Click to play', 90, 535);        
     }
-    
+    const canvasWidth = canvas.width; // Canvas genişliği
     ctx.font = "bold 20px courier";
     ctx.fillStyle = "black";
-    ctx.fillText(`Best Score: ${bestScore}`, 10, 30);
-    ctx.fillText(`Current Score: ${currentScore}`, 200, 30);
+    // Best Score'u sol tarafa yerleştir (10 piksel soldan boşluk)
+    ctx.fillText(`Best: ${bestScore}`, 20, 60);
 
-    document.getElementById('bestScore').innerHTML = `Best : ${bestScore}`;
-    document.getElementById('currentScore').innerHTML = `Current : ${currentScore}`;
+    // Current Score'u sağ tarafa yerleştir (canvas genişliğinden metnin genişliğini çıkararak)
+    const currentScoreText = `Current: ${currentScore}`;
+    const textWidth = ctx.measureText(currentScoreText).width; // Metnin genişliğini al
+    ctx.fillText(currentScoreText, canvasWidth - textWidth - 20, 60); // Sağdan 10 piksel boşluk bırak
+    
+    drawScoreCentered(currentScore, 60);  // 60, Y pozisyonu (örneğin 60 piksel aşağıda göster)
 
     window.requestAnimationFrame(render);
 }
 
 // Launch setup
 setup();
-// DOMContentLoaded olayını dinle
-document.addEventListener('DOMContentLoaded', () => {
-    img.onload = render; // Resim yüklendiğinde render fonksiyonunu başlat
-});
+img.onload = render;
 
 // Start game
 document.addEventListener('click', () => {
