@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <script async src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomb of the Mask Benzeri Oyun</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <header>
-        <h1>Floppy Bird</h1>
-        <div class="score-container">
-          <div id="bestScore"></div>
-          <div id="currentScore"></div>
-        </div>        
-    </header>
-    
-    <canvas id="canvas" width="431" height="768"></canvas>
+    <canvas id="gameCanvas" width="800" height="1000"></canvas>
+    <canvas id="uiCanvas" width="800" height="200"></canvas>
+
+    <div class="altmenu"></div>
+
+    <script src="ui.js"></script>
     <script src="app.js"></script>
 </body>
-
 </html>
