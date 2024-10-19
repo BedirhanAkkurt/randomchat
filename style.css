@@ -1,30 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
 body {
     margin: 0;
-    text-align: center;
-    font-family: 'Press Start 2P', cursive;
-    user-select: none;
-}
-header {
-    margin: 0;
-    width: 431px;
-}
-#canvas{
-    width: 100%;
-    aspect-ratio: 0.5611979166666667;
-}
-h1 {
-    font-size: 64px;
-    font-weight: normal;
-    background: #4ec0ca;
-    height: 100px;
-    width: 100vw;
-    padding: 1.2rem 0;
-    margin: 0;
-}
-.score-container {
     display: flex;
-    justify-content: space-between;
-    padding: 8px 6px;
+    flex-direction: column; /* Öğeler alt alta sıralanır */
+    justify-content: center; /* Yatayda ortalar */
+    align-items: center; /* Dikeyde ortalar */
+    height: 100vh;
+    background-color: #fadac1;
+    font-family: "Squada One", sans-serif;
+}
+
+#gameCanvas {
+    margin-top: 20px;
+    width: 100%;
+}
+
+#uiCanvas {
+    margin-top: 20px;
+    width: 100%;
+    background-color: transparent;
 }
