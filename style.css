@@ -56,6 +56,15 @@ body {
     color: #000000;
     text-transform: uppercase;
 }
+.go1651228014 {
+    font-family: "Squada One", sans-serif;
+    line-height: normal;
+    margin: 0.5vh 0vh 0.5vh 2vh;/* TOP RIGHT BOTTOM LEFT */
+    text-align: center;
+    color: #000000;
+    font-size: calc(0.4 * 4vh);
+    text-transform: uppercase;
+}
 
 #ton-connect svg {
     height: 3vh;
