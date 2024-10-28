@@ -28,7 +28,7 @@ scrollContainer.addEventListener('scroll', updateScrollDots);
 function updateMaxWidth() {
     const coverImage = document.getElementById('coverImage');
     const coverImageWidth = coverImage.clientWidth; // Kapak resminin genişliğini alır
-    const otherElements = document.querySelectorAll('#ContentItem, .tasks-header, .tasks-area, .tasks-subheader');
+    const otherElements = document.querySelectorAll('#ContentItem, .tasks-header, .tasks-area, .tasks-subheader, .altmenu');
     
     // Diğer elemanların max-width değerini kapak resmine göre ayarlar
     otherElements.forEach(element => {
@@ -45,3 +45,18 @@ const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
     buttonRootId: 'ton-connect'
 });
 
+document.querySelectorAll('.altmenu button').forEach((button) => {
+    button.addEventListener('click', () => {
+        // İlk olarak tüm butonların resmini varsayılan haline döndür
+        document.querySelectorAll('.altmenu button img').forEach((img) => {
+            const originalSrc = img.src.replace('_Selected', ''); // Seçili durumu kaldır
+            img.src = originalSrc;
+        });
+
+        // Tıklanan butonun resmini seçili hale getir
+        const img = button.querySelector('img');
+        if (!img.src.includes('_Selected')) {
+            img.src = img.src.replace(/(\.\w+)$/, '_Selected$1'); // Dosya adının sonuna _Selected ekle
+        }
+    });
+});
