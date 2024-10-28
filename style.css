@@ -277,7 +277,7 @@ body {
     padding: 0 2vh;
     text-align: center;
     font-family: "Squada One", sans-serif;
-    border-radius: 2.5vh;
+    border-radius: 2.25vh;
     font-size: calc(0.5 * 4vh); /* Yazı boyutunu ayarlar */
 }
 
@@ -303,4 +303,49 @@ body {
 button:active {
     transform: scale(0.95); /* Buton tıklanınca hafifçe küçülsün */
     transition: all 0.1s ease; /* Tıklama anında geçiş */
+}
+
+.altmenu-container {
+    background-color: #000000;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    z-index: 1001;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.altmenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 10vw;
+}
+.altmenu button {
+    background-color: #000000;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.altmenu button p {
+    text-align: center;
+    font-family: "Squada One", sans-serif;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    font-size: calc(0.375 * 4vh); /* Yazı boyutunu ayarlar */
+}
+.altmenu button img {
+    box-sizing: border-box;
+    margin: 1vh 0 0 0;
+    height: 5vh;
+    aspect-ratio: 1;
 }
