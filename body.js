@@ -25,25 +25,14 @@ function updateScrollDots() {
 
 scrollContainer.addEventListener('scroll', updateScrollDots);
 
-function updateMaxWidth() {
-    const coverImage = document.getElementById('coverImage');
-    const coverImageWidth = coverImage.clientWidth; // Kapak resminin genişliğini alır
-    const otherElements = document.querySelectorAll('#ContentItem, .tasks-header, .tasks-area, .tasks-subheader, .altmenu');
-    
-    // Diğer elemanların max-width değerini kapak resmine göre ayarlar
-    otherElements.forEach(element => {
-        element.style.maxWidth = `${coverImageWidth}px`;
-    });
-}
-
-// Sayfa yüklendiğinde ve pencere boyutu değiştiğinde çalıştır
-window.addEventListener('load', updateMaxWidth);
-window.addEventListener('resize', updateMaxWidth);
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
     manifestUrl: 'https://raw.githubusercontent.com/BedirhanAkkurt/randomchat/refs/heads/main/tonconnect-manifest.json',
     buttonRootId: 'ton-connect'
 });
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 document.querySelectorAll('.altmenu button').forEach((button) => {
     button.addEventListener('click', () => {
@@ -60,3 +49,43 @@ document.querySelectorAll('.altmenu button').forEach((button) => {
         }
     });
 });
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+const pages = {
+    home: document.querySelector('.home'),
+    statics: document.querySelector('.statics'),
+    friends: document.querySelector('.friends')
+};
+
+const buttons = document.querySelectorAll('.altmenu button');
+
+buttons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+        // Aktif olan sayfayı kaldır
+        document.querySelector('.active-page').classList.remove('active-page');
+        
+        // İlgili sayfayı aktif yap
+        const pageKey = Object.keys(pages)[index]; // home, statics, friends
+        pages[pageKey].classList.add('active-page');
+    });
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+function updateMaxWidth() {
+    const coverImage = document.getElementById('coverImage');
+    const coverImageWidth = coverImage.clientWidth; // Kapak resminin genişliğini alır
+    const otherElements = document.querySelectorAll('#ContentItem, .tasks-header, .tasks-area, .tasks-subheader, .leaderboard-header, .leaderboard-area, .leaderboard-subheader, .friends-description, .altmenu');
+    
+    // Diğer elemanların max-width değerini kapak resmine göre ayarlar
+    otherElements.forEach(element => {
+        element.style.maxWidth = `${coverImageWidth}px`;
+    });
+}
+
+// Sayfa yüklendiğinde ve pencere boyutu değiştiğinde çalıştır
+window.addEventListener('load', updateMaxWidth);
+window.addEventListener('resize', updateMaxWidth);
+
+///////////////////////////////////////////////////////////////////////////////////////////////
