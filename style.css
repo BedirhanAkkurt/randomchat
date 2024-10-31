@@ -9,9 +9,7 @@ body {
     gap: 2vh;
     overflow-x: hidden;
 }
-.highlight {
-    color: #007bff;
-}
+
 .home, .statics, .friends {
     width: 100vw;
     display: none;
