@@ -7,14 +7,23 @@ body {
     background-color: black;
     font-family: "Squada One", sans-serif;
     gap: 2vh;
+    overflow-x: hidden;
 }
-.home {
+.highlight {
+    color: #007bff;
+}
+.home, .statics, .friends {
     width: 100vw;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: space-between; /* Öğeleri aralarına boşluk bırakacak şekilde düzenler */
     gap: 3vh;
+}
+
+
+.active-page {
+    display: flex;
 }
 .cover {
     width: 100%;
@@ -134,11 +143,11 @@ body {
 }
 
 #ScrollableContent {
-    width: 300%; /* İçerik genişliğini ayarlamak için */
+    width: 400%; /* İçerik genişliğini ayarlamak için */
 }
 
 #ContentItem-container {
-    width: calc(300% / 3);
+    width: calc(400% / 4);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -348,4 +357,175 @@ button:active {
     margin: 1vh 0 0 0;
     height: 5vh;
     aspect-ratio: 1;
+}
+
+.leaderboard-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.leaderboard-holder {
+    width: 100%; /* Her elemanın ekranın tamamını kaplamasını sağlar */
+    height: 20vh; /* Eleman yüksekliği container yüksekliğiyle eşleşir */
+    padding: 0 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.leaderboard-header {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-family: "Squada One", sans-serif;
+    font-size: calc(0.75 * 6vh); /* Yazı boyutunu ayarlar */
+    color: white;
+}
+.leaderboard-header p{
+    margin: 0;
+}
+.leaderboard-subheader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1vh;
+    height: auto;
+    text-align: left;
+    font-family: "Squada One", sans-serif;
+    font-size: calc(0.45 * 6vh); /* Yazı boyutunu ayarlar */
+    color: #ffffff80;
+    box-sizing: border-box;
+}
+.leaderboard-subheader p {
+    margin: 5vh 1vh 1vh 1vh;
+}
+.leaderboard-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    gap: 1vh;
+}
+.leaderboard{
+    border: 0.1vh solid #ffffff50;
+    padding: 1vh 1vh;
+    width: 100%;
+    display: flex;
+    border-radius: 2vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+.leaderboard img {
+    border: 0.1vh solid #ffffff50;
+    border-radius: 50%;
+    box-sizing: border-box;
+    margin: 1vh 0;
+    height: 6vh;
+    aspect-ratio: 1;
+}
+.leaderboard button {
+    background-color: #007aff;
+    border: none;
+    box-shadow: none;
+    height: 4.5vh;
+    width: 100%;
+    padding: 0 2vh;
+    text-align: center;
+    font-family: "Squada One", sans-serif;
+    border-radius: 0 0 1.25vh 1.25vh;
+    font-size: calc(0.675 * 4vh); /* Yazı boyutunu ayarlar */
+}
+
+.leaderboard-contentitem {
+    width: 100%;
+}
+
+.leaderboard #Content {
+    text-align: left;
+    margin: 0.5vh 1vh;
+    padding: 0;
+    color: white;
+    font-size: calc(0.575 * 4vh); /* Yazı boyutunu ayarlar */
+}
+.leaderboard #Prize {
+    text-align: left;
+    margin: 0.5vh 1vh;
+    padding: 0;
+    color: #ffffff70;
+    font-size: calc(0.475 * 4vh); /* Yazı boyutunu ayarlar */
+}
+
+.leaderboard-contentitem-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+.leaderboard-contentitem-container p{
+    color: white;
+    font-size: calc(0.65 * 4vh); /* Yazı boyutunu ayarlar */
+    margin: 1vh 1vh;
+}
+#horizontal-line {
+    width: 100%;
+    height: 0.2vh; /* Çizginin kalınlığını ayarlar */
+    background: #ffffff50;
+    margin: 1vh 0; /* Yukarıdan ve aşağıdan 20px boşluk, sağda ve solda ortalama sağlar */
+}
+
+.friends-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.friends-holder {
+    width: 100%; /* Her elemanın ekranın tamamını kaplamasını sağlar */
+    height: auto;
+    padding: 0 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.friends-header {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-family: "Squada One", sans-serif;
+    font-size: calc(0.75 * 6vh); /* Yazı boyutunu ayarlar */
+    color: white;
+}
+.friends-header p {
+    margin: 0;
+}
+
+.friends-description {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 5vw;
+}
+
+.friends-description-prize{
+    width: 100%;
+    margin: 0;
+    color: #ffffff;
+    font-size: calc(0.65 * 4vh); /* Yazı boyutunu ayarlar */
+    text-align: left;
+}
+.friends-description-title {
+    width: 100%;
+    margin: 1vh 0;
+    color: #ffffff;
+    font-size: calc(0.75 * 4vh); /* Yazı boyutunu ayarlar */
+    text-align: left;
 }
